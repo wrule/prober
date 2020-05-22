@@ -1,0 +1,493 @@
+{
+  "extParams": {},
+  "object": {
+    "allUsers": 45,
+    "apps": [
+      {
+        "id": "15100275897401344",
+        "name": "压力机"
+      },
+      {
+        "id": "16257692775481344",
+        "name": "asd对对对"
+      },
+      {
+        "id": "44270355859111936",
+        "name": "xspider_1"
+      }
+    ],
+    "creator": {
+      "imgUrl": "perfma-default-biz-avatar.jpg",
+      "nickName": "杭州笨马网络技术有限公司",
+      "uid": "132078224594309120"
+    },
+    "machineList": {
+      "xspider_1": [
+        {
+          "cpuCores": 4,
+          "diskTotalSize": 281341296640,
+          "hostName": "xspider.dev.perfma-inc.net",
+          "ip": "192.168.0.56",
+          "machineId": "39652102348210176",
+          "memoryTotalSize": 8202530816,
+          "osName": "Linux",
+          "osVersion": "3.10.0-693.el7.x86_64",
+          "stateless": false
+        }
+      ],
+      "压力机": [
+        {
+          "cpuCores": 2,
+          "diskTotalSize": 108945207296,
+          "hostName": "stress101.perfma-inc.net",
+          "ip": "192.168.0.101",
+          "machineId": "42113759542509568",
+          "memoryTotalSize": 3974828032,
+          "osName": "Linux",
+          "osVersion": "3.10.0-693.el7.x86_64",
+          "stateless": false
+        },
+        {
+          "cpuCores": 2,
+          "diskTotalSize": 108945207296,
+          "hostName": "stress102.perfma-inc.net",
+          "ip": "192.168.0.102",
+          "machineId": "42113802355867648",
+          "memoryTotalSize": 3974828032,
+          "osName": "Linux",
+          "osVersion": "3.10.0-693.el7.x86_64",
+          "stateless": false
+        },
+        {
+          "cpuCores": 24,
+          "diskTotalSize": 5187370389504,
+          "hostName": "ccdf902a58c9",
+          "ip": "172.19.0.2",
+          "machineId": "48169593551716352",
+          "memoryTotalSize": 67385499648,
+          "osName": "Linux",
+          "osVersion": "3.10.0-862.el7.x86_64",
+          "stateless": false
+        },
+        {
+          "cpuCores": 2,
+          "diskTotalSize": 106240409600,
+          "hostName": "xsea.dev.perfma-inc.net",
+          "ip": "192.168.0.36",
+          "machineId": "51798575143714816",
+          "memoryTotalSize": 3974942720,
+          "osName": "Linux",
+          "osVersion": "3.10.0-693.el7.x86_64",
+          "stateless": false
+        },
+        {
+          "cpuCores": 2,
+          "diskTotalSize": 108547723264,
+          "hostName": "stress103.perfma-inc.net",
+          "ip": "192.168.0.103",
+          "machineId": "55853540030021632",
+          "memoryTotalSize": 3974828032,
+          "osName": "Linux",
+          "osVersion": "3.10.0-693.el7.x86_64",
+          "stateless": false
+        }
+      ]
+    },
+    "maxDuration": 461,
+    "name": "jmeter多线程组-压xspider-用户数-并行",
+    "sceneExecId": "56962370149285888",
+    "sceneId": "56143248297558016",
+    "sceneMeta": {
+      "createTime": 1589273574000,
+      "creatorId": "132078224594309120",
+      "curveDetail": "{\"sumTime\":461,\"data\":[{\"index\":0,\"period\":0,\"userNum\":0},{\"index\":1,\"period\":1,\"userNum\":45},{\"index\":2,\"period\":60,\"userNum\":0},{\"index\":3,\"period\":10,\"userNum\":-23},{\"index\":4,\"period\":60,\"userNum\":0},{\"index\":5,\"period\":5,\"userNum\":-6},{\"index\":6,\"period\":3,\"userNum\":-3},{\"index\":9,\"period\":2,\"userNum\":-2},{\"index\":10,\"period\":60,\"userNum\":0},{\"index\":11,\"period\":10,\"userNum\":10},{\"index\":12,\"period\":60,\"userNum\":0},{\"index\":13,\"period\":10,\"userNum\":-2},{\"index\":14,\"period\":60,\"userNum\":0},{\"index\":15,\"period\":10,\"userNum\":-15},{\"index\":16,\"period\":30,\"userNum\":0},{\"index\":17,\"period\":10,\"userNum\":5},{\"index\":18,\"period\":60,\"userNum\":0},{\"index\":19,\"period\":10,\"userNum\":-5}],\"maxUser\":45}",
+      "disablePause": false,
+      "focusedTransactions": "[\"获取告警列表\",\"禁用规则1112\"]",
+      "id": "56143248297558016",
+      "machineCount": 1,
+      "merchantId": "132078224594309120",
+      "modifierId": "132078224594309120",
+      "modifyTime": 1590054749000,
+      "name": "jmeter多线程组-压xspider-用户数-并行",
+      "runTag": 0,
+      "sceneExecId": "56962370149285888",
+      "status": true,
+      "strategyType": "USER",
+      "useScriptStrategy": false
+    },
+    "sceneScriptConfs": [
+      {
+        "createTime": 1589279038000,
+        "curveDetail": "{\"sumTime\":461,\"data\":[{\"userNum\":10,\"period\":1,\"index\":0},{\"userNum\":0,\"period\":60,\"index\":1},{\"userNum\":5,\"period\":10,\"index\":2},{\"userNum\":0,\"period\":60,\"index\":3},{\"userNum\":-8,\"period\":10,\"index\":4},{\"userNum\":0,\"period\":60,\"index\":5},{\"userNum\":10,\"period\":10,\"index\":6},{\"userNum\":0,\"period\":60,\"index\":7},{\"userNum\":-2,\"period\":10,\"index\":8},{\"userNum\":0,\"period\":60,\"index\":9},{\"userNum\":-15,\"period\":10,\"index\":10},{\"userNum\":0,\"period\":30,\"index\":11},{\"userNum\":5,\"period\":10,\"index\":12},{\"userNum\":0,\"period\":60,\"index\":13},{\"userNum\":-5,\"period\":10,\"index\":14}],\"detail\":\"\",\"maxUser\":17}",
+        "id": "56148977759813632",
+        "jmeterThreadName": "告警规则页面",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589340087000,
+        "option": "ACTION",
+        "percent": 3333,
+        "realName": "告警规则页面",
+        "runTime": 461,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptId": "48616381459988480",
+        "scriptName": "访问xspider-5个线程组并行",
+        "scriptType": "JMETER",
+        "threadGroupConfigs": "{\"duration\":461,\"initialDelay\":0,\"loops\":-1,\"numThreads\":10,\"rampUpTime\":1}",
+        "threadGroupType": "FIXED_THREAD_GROUP",
+        "users": 17
+      },
+      {
+        "createTime": 1589279038000,
+        "curveDetail": "{\"sumTime\":271,\"data\":[{\"userNum\":5,\"period\":1,\"index\":0},{\"userNum\":0,\"period\":60,\"index\":1},{\"userNum\":-3,\"period\":10,\"index\":2},{\"userNum\":0,\"period\":60,\"index\":3},{\"userNum\":2,\"period\":10,\"index\":4},{\"userNum\":0,\"period\":60,\"index\":5},{\"userNum\":-4,\"period\":10,\"index\":6},{\"userNum\":0,\"period\":60,\"index\":7}],\"detail\":\"\",\"maxUser\":5}",
+        "id": "56148977761910784",
+        "jmeterThreadName": "编辑进入告警",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1590039763000,
+        "option": "ACTION",
+        "percent": 3333,
+        "realName": "编辑进入告警",
+        "runTime": 271,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptId": "48616381459988480",
+        "scriptName": "访问xspider-5个线程组并行",
+        "scriptType": "JMETER",
+        "threadGroupConfigs": "{\"duration\":271,\"initialDelay\":0,\"loops\":-1,\"numThreads\":5,\"rampUpTime\":1}",
+        "threadGroupType": "FIXED_THREAD_GROUP",
+        "users": 5
+      },
+      {
+        "createTime": 1589279038000,
+        "curveDetail": "{\"sumTime\":461,\"data\":[{\"userNum\":30,\"period\":1,\"index\":0},{\"userNum\":0,\"period\":60,\"index\":1},{\"userNum\":-25,\"period\":10,\"index\":2},{\"userNum\":0,\"period\":60,\"index\":3},{\"userNum\":-5,\"period\":10,\"index\":4},{\"userNum\":0,\"period\":60,\"index\":5},{\"userNum\":4,\"period\":10,\"index\":6},{\"userNum\":0,\"period\":60,\"index\":7},{\"userNum\":0,\"period\":190,\"index\":8}],\"detail\":\"\",\"maxUser\":30}",
+        "id": "56148977764007936",
+        "jmeterThreadName": "禁用启用告警",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589340541000,
+        "option": "ACTION",
+        "percent": 3334,
+        "realName": "禁用启用告警",
+        "runTime": 461,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptId": "48616381459988480",
+        "scriptName": "访问xspider-5个线程组并行",
+        "scriptType": "JMETER",
+        "threadGroupConfigs": "{\"duration\":461,\"initialDelay\":0,\"loops\":-1,\"numThreads\":30,\"rampUpTime\":1}",
+        "threadGroupType": "FIXED_THREAD_GROUP",
+        "users": 30
+      },
+      {
+        "createTime": 1589273574000,
+        "id": "56143248317480960",
+        "jmeterThreadName": "测试准入-1",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589273574000,
+        "option": "INIT",
+        "percent": 0,
+        "realName": "测试准入-1",
+        "runTime": 0,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptExecuteConfig": {
+          "apps": [
+            {
+              "clusters": [
+                {
+                  "id": "42101669141413888",
+                  "name": "stress_192_168_0_102"
+                },
+                {
+                  "id": "42101680200744960",
+                  "name": "stress_192_168_0_103"
+                }
+              ],
+              "id": "15100275897401344",
+              "name": "压力机"
+            }
+          ],
+          "params": [
+            {
+              "currentValue": "10",
+              "defaultValue": "120",
+              "description": "无效的参数名",
+              "name": "name"
+            },
+            {
+              "currentValue": "  test",
+              "defaultValue": "sdf ",
+              "description": "sdfsd",
+              "name": "test"
+            }
+          ]
+        },
+        "scriptId": "48638162371608576",
+        "scriptName": "测试准入-1",
+        "scriptType": "SHELL",
+        "threadGroupConfigs": "",
+        "users": 0
+      },
+      {
+        "createTime": 1589273574000,
+        "id": "56143248320626688",
+        "jmeterThreadName": "测试准入-3",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589279102000,
+        "option": "INIT",
+        "percent": 0,
+        "realName": "测试准入-3",
+        "runTime": 0,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptExecuteConfig": {
+          "apps": [
+            {
+              "clusters": [
+                {
+                  "id": "42101669141413888",
+                  "name": "stress_192_168_0_102"
+                },
+                {
+                  "id": "42101680200744960",
+                  "name": "stress_192_168_0_103"
+                }
+              ],
+              "id": "15100275897401344",
+              "name": "压力机"
+            }
+          ],
+          "params": [
+            {
+              "currentValue": "/home/admin/",
+              "defaultValue": "/home/admin/perfma",
+              "description": "目录",
+              "name": "name"
+            },
+            {
+              "currentValue": "12345678",
+              "defaultValue": "dddd",
+              "description": "dddd",
+              "name": "data"
+            },
+            {
+              "currentValue": "rewrew",
+              "defaultValue": "rewqrewqr",
+              "description": "ewqewqre",
+              "name": "wqeq"
+            }
+          ],
+          "sceneScriptId": "56143248320626688"
+        },
+        "scriptId": "48638266735329280",
+        "scriptName": "测试准入-3",
+        "scriptType": "SHELL",
+        "threadGroupConfigs": "",
+        "users": 0
+      },
+      {
+        "createTime": 1589273574000,
+        "id": "56143248321675264",
+        "jmeterThreadName": "测试准入-2",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589279102000,
+        "option": "INIT",
+        "percent": 0,
+        "realName": "测试准入-2",
+        "runTime": 0,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptExecuteConfig": {
+          "apps": [
+            {
+              "clusters": [
+                {
+                  "id": "42101669141413888",
+                  "name": "stress_192_168_0_102"
+                },
+                {
+                  "id": "42101680200744960",
+                  "name": "stress_192_168_0_103"
+                },
+                {
+                  "id": "42101658737442816",
+                  "name": "stress_192_168_0_101"
+                }
+              ],
+              "id": "15100275897401344",
+              "name": "压力机"
+            }
+          ],
+          "params": [
+            {
+              "currentValue": "cpuinfo",
+              "defaultValue": "cpuinfo",
+              "description": "cpuinfo",
+              "name": "name"
+            },
+            {
+              "currentValue": "$?",
+              "defaultValue": "sd",
+              "description": "sdff",
+              "name": "result"
+            },
+            {
+              "currentValue": "/",
+              "defaultValue": "/home",
+              "description": "sdf ",
+              "name": "boot"
+            },
+            {
+              "currentValue": "sdf",
+              "defaultValue": "sdf",
+              "description": "sdf",
+              "name": "eee"
+            }
+          ],
+          "sceneScriptId": "56143248321675264"
+        },
+        "scriptId": "48638237911023616",
+        "scriptName": "测试准入-2",
+        "scriptType": "SHELL",
+        "threadGroupConfigs": "",
+        "users": 0
+      },
+      {
+        "createTime": 1589273574000,
+        "id": "56143248327966720",
+        "jmeterThreadName": "测试准出-3",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589335786000,
+        "option": "END",
+        "percent": 0,
+        "realName": "测试准出-3",
+        "runTime": 0,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptExecuteConfig": {
+          "apps": [
+            {
+              "clusters": [
+                {
+                  "id": "42101658737442816",
+                  "name": "stress_192_168_0_101"
+                },
+                {
+                  "id": "42101669141413888",
+                  "name": "stress_192_168_0_102"
+                }
+              ],
+              "id": "15100275897401344",
+              "name": "压力机"
+            }
+          ],
+          "params": [
+            {
+              "currentValue": "namenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamename",
+              "defaultValue": "namenamenamenamenamenamenamenamenamenamenamename",
+              "description": "namenamenamenamenamenamenamenamenamename",
+              "name": "namenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamename"
+            }
+          ],
+          "sceneScriptId": "56142665860775936"
+        },
+        "scriptId": "48639878627328000",
+        "scriptName": "测试准出-3",
+        "scriptType": "SHELL",
+        "threadGroupConfigs": "",
+        "users": 0
+      },
+      {
+        "createTime": 1589273574000,
+        "id": "56143248329015296",
+        "jmeterThreadName": "测试准出-2",
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589335786000,
+        "option": "END",
+        "percent": 0,
+        "realName": "测试准出-2",
+        "runTime": 0,
+        "runnable": true,
+        "sceneId": "56143248297558016",
+        "scriptExecuteConfig": {
+          "apps": [
+            {
+              "clusters": [
+                {
+                  "id": "42101669141413888",
+                  "name": "stress_192_168_0_102"
+                }
+              ],
+              "id": "15100275897401344",
+              "name": "压力机"
+            }
+          ],
+          "params": [],
+          "sceneScriptId": "56143248329015296"
+        },
+        "scriptId": "48639855791439872",
+        "scriptName": "测试准出-2",
+        "scriptType": "SHELL",
+        "threadGroupConfigs": "",
+        "users": 0
+      }
+    ],
+    "sceneStrategyList": [
+      {
+        "createTime": 1589335786000,
+        "id": "56149043622969344",
+        "index": 0,
+        "merchantId": "132078224594309120",
+        "modifyTime": 1589335786000,
+        "period": 0,
+        "sceneId": "56143248297558016",
+        "userNum": 27
+      }
+    ],
+    "scriptConfs": [
+      {
+        "$ref": "$.object.sceneScriptConfs[3]"
+      },
+      {
+        "$ref": "$.object.sceneScriptConfs[4]"
+      },
+      {
+        "$ref": "$.object.sceneScriptConfs[5]"
+      },
+      {
+        "$ref": "$.object.sceneScriptConfs[6]"
+      },
+      {
+        "$ref": "$.object.sceneScriptConfs[7]"
+      }
+    ],
+    "scriptDataFiles": [],
+    "scriptJars": [],
+    "scripts": [
+      {
+        "createTime": 1590054752366,
+        "fileKey": "group1/M00/43/29/wKgAQl66n7eAECWkAABmjJPNdOI560.jmx",
+        "fileSize": "0",
+        "groups": "{\"点击告警规则\":\"告警规则页面\",\"获取告警列表\":\"告警规则页面\",\"http://xspider-u_dev_perfma-inc_net/api/v2/xspider/alerter/alertRule/list\":\"告警规则页面\",\"编辑1112告警\":\"编辑进入告警\",\"禁用规则1112\":\"禁用启用告警\",\"启用规则1112\":\"禁用启用告警\"}",
+        "id": "48616381459988480",
+        "isSerialize": false,
+        "merchantId": "132078224594309120",
+        "modifierId": "132078224594309120",
+        "modifyTime": 1589459855000,
+        "name": "访问xspider-5个线程组并行",
+        "type": "JMETER"
+      }
+    ],
+    "strategyType": "USER",
+    "unRunnableScripts": [
+      {
+        "id": "48616381459988480",
+        "name": "访问xspider-5个线程组并行"
+      }
+    ],
+    "userCountKeys": {
+      "禁用启用告警": "禁用启用告警",
+      "告警规则页面": "告警规则页面",
+      "编辑进入告警": "编辑进入告警"
+    }
+  },
+  "success": true
+}
