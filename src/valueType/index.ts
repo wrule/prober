@@ -1,9 +1,9 @@
 export enum ValueType {
-  Unknow = 'unknow',
+  Unknow = 'any',
   Boolean = 'boolean',
   Number = 'number',
   String = 'string',
-  Date = 'date',
-  Object = 'object',
-  Array = 'array',
+  Date = 'Date',
+  Object = '_object',
+  Array = '_array',
 }

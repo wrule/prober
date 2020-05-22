@@ -17,7 +17,7 @@ export class Value {
     return this.fields;
   }
 
-  private get FieldsSorted(): Field[] {
+  public get FieldsSorted(): Field[] {
     const result: Field[] = this.fields.slice(0);
     result.sort((a, b) => a.SrcName.localeCompare(b.SrcName));
     return result;
@@ -33,11 +33,11 @@ export class Value {
             this.type !== ValueType.Array;
   }
 
-  private static UnknowHash: string = Hash('unknow');
-  private static BooleanHash: string = Hash('boolean');
-  private static NumberHash: string = Hash('number');
-  private static StringHash: string = Hash('string');
-  private static DateHash: string = Hash('date');
+  private static UnknowHash: string = Hash(ValueType.Unknow);
+  private static BooleanHash: string = Hash(ValueType.Boolean);
+  private static NumberHash: string = Hash(ValueType.Number);
+  private static StringHash: string = Hash(ValueType.String);
+  private static DateHash: string = Hash(ValueType.Date);
 
   private typeHash: string = '';
   public get TypeHash(): string {
