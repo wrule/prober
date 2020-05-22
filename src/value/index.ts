@@ -2,6 +2,9 @@ import { ValueType } from '../valueType';
 import { Field } from '../field';
 import { Hash } from '../hash';
 
+/**
+ * 类型化的值类型
+ */
 export class Value {
   public get SrcValue(): any {
     return this.value;

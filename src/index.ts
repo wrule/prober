@@ -5,9 +5,6 @@ import Lodash from 'lodash';
 
 console.log(`I${Lodash.upperFirst(Lodash.camelCase(' ss ss dd'))}`);
 
-const value = new Value(rspObj.object);
-console.log(value.FieldsSorted.map((item) => [item.TsFieldName, item.TsIntfName]));
-
 function Do(
   value: any,
   name: string = '',
