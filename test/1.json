@@ -1,5 +1,6 @@
 {
   "extParams": {},
+  "success": true,
   "object": {
     "allUsers": 45,
     "apps": [
@@ -17,17 +18,17 @@
       }
     ],
     "creator": {
+      "uid": "132078224594309120",
       "imgUrl": "perfma-default-biz-avatar.jpg",
-      "nickName": "杭州笨马网络技术有限公司",
-      "uid": "132078224594309120"
+      "nickName": "杭州笨马网络技术有限公司"
     },
     "machineList": {
       "xspider_1": [
         {
           "cpuCores": 4,
           "diskTotalSize": 281341296640,
-          "hostName": "xspider.dev.perfma-inc.net",
           "ip": "192.168.0.56",
+          "hostName": "xspider.dev.perfma-inc.net",
           "machineId": "39652102348210176",
           "memoryTotalSize": 8202530816,
           "osName": "Linux",
@@ -488,6 +489,5 @@
       "告警规则页面": "告警规则页面",
       "编辑进入告警": "编辑进入告警"
     }
-  },
-  "success": true
+  }
 }

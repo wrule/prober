@@ -4,12 +4,15 @@
   "description": "Get TypeScript type from JavaScript value and generate TypeScript code",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon --inspect-brk dist/index.js",
+    "dev": "node dist/index.js",
     "watch": "tsc -w",
     "build": "tsc"
   },
   "repository": "https://github.com/wrule/prober",
   "author": "鸡毛 <shihao.gu@perfma.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "hasha": "^5.2.0"
+  }
 }

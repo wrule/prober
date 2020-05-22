@@ -1,8 +1,6 @@
-import rspObj from '../test/1.json';
+import rspObj from '../test/2.json';
 import { Value } from './value';
+import { Hash } from './hash';
 
-console.log(rspObj.success);
-
-const val = new Value(rspObj.object);
-console.log(val);
-console.log(12345678);
+const value = new Value(rspObj.object);
+console.log(value.TypeHash);
