@@ -1,4 +1,5 @@
 import { Value } from '../value';
+import { Type } from '../type';
 
 /**
  * 类型化的字段类型
@@ -20,10 +21,15 @@ export class Field {
 
   private tsValue: Value;
   /**
-   * 字段值经过类型化转化之后的值
+   * 字段原始值经过类型化转化之后的值
    */
   public get Value(): Value {
     return this.tsValue;
+  }
+
+  private tsType: Type;
+  public get Type(): Type {
+    return this.tsType;
   }
 
   /**
@@ -36,5 +42,6 @@ export class Field {
     private name: string = '',
   ) {
     this.tsValue = new Value(value);
+    this.tsType = new Type(this.tsValue, name);
   }
 }
