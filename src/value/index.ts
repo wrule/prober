@@ -32,8 +32,8 @@ export class Value {
   }
 
   public get IsBaseType(): boolean {
-    return this.type !== ValueType.Object &&
-            this.type !== ValueType.Array;
+    return this.type !== ValueType.Record &&
+            this.type !== ValueType.List;
   }
 
   private static UnknowHash: string = Hash(ValueType.Unknow);
@@ -69,14 +69,16 @@ export class Value {
         this.typeHash = Value.DateHash;
       } break;
       case '[object Object]': {
-        this.type = ValueType.Object;
+        this.type = ValueType.Record;
         this.fields = Object.entries(this.value).map((ary) => new Field(ary[1], ary[0]));
-        this.typeHash = Hash(this.FieldsSorted.map((item) => `${item.SrcName}:${item.Value.TypeHash}`).join());
+        // Record值的hash是所有排序后的字段名称，字段类型hash通过','连接而产生的字符串的hash
+        this.typeHash = Hash(this.FieldsSorted.map((item) => `${item.SrcName}:${item.Value.TypeHash}`).join(','));
       } break;
       case '[object Array]': {
-        this.type = ValueType.Array;
+        this.type = ValueType.List;
         this.list = (this.value as any[]).map((item) => new Value(item));
-        this.typeHash = Hash(this.list.map((item) => item.TypeHash).join());
+        // List值的类型hash是其中每一个元素的类型hash用','连接而产生的字符串的hash
+        this.typeHash = Hash(this.list.map((item) => item.TypeHash).join(','));
       } break;
       default: {
         this.type = ValueType.Unknow;
