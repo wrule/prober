@@ -42,11 +42,18 @@ export class Value {
   private static StringHash: string = Hash(ValueType.String);
   private static DateHash: string = Hash(ValueType.Date);
 
-  private typeHash: string = '';
-  public get TypeHash(): string {
-    return this.typeHash;
+  private structHash: string = '';
+  /**
+   * 用于描述此值结构的hash字符串
+   */
+  public get StructHash(): string {
+    return this.structHash;
   }
 
+  /**
+   * 构造函数
+   * @param value 原始的JavaScript值
+   */
   public constructor(
     private value: any,
   ) {
@@ -54,35 +61,35 @@ export class Value {
     switch (protName) {
       case '[object Boolean]': {
         this.type = ValueType.Boolean;
-        this.typeHash = Value.BooleanHash;
+        this.structHash = Value.BooleanHash;
       } break;
       case '[object Number]': {
         this.type = ValueType.Number;
-        this.typeHash = Value.NumberHash;
+        this.structHash = Value.NumberHash;
       } break;
       case '[object String]': {
         this.type = ValueType.String;
-        this.typeHash = Value.StringHash;
+        this.structHash = Value.StringHash;
       } break;
       case '[object Date]': {
         this.type = ValueType.Date;
-        this.typeHash = Value.DateHash;
+        this.structHash = Value.DateHash;
       } break;
       case '[object Object]': {
         this.type = ValueType.Record;
         this.fields = Object.entries(this.value).map((ary) => new Field(ary[1], ary[0]));
         // Record值的hash是所有排序后的字段名称，字段类型hash通过','连接而产生的字符串的hash
-        this.typeHash = Hash(this.FieldsSorted.map((item) => `${item.SrcName}:${item.Value.TypeHash}`).join(','));
+        this.structHash = Hash(this.FieldsSorted.map((item) => `${item.SrcName}:${item.Value.StructHash}`).join(','));
       } break;
       case '[object Array]': {
         this.type = ValueType.List;
         this.list = (this.value as any[]).map((item) => new Value(item));
         // List值的类型hash是其中每一个元素的类型hash用','连接而产生的字符串的hash
-        this.typeHash = Hash(this.list.map((item) => item.TypeHash).join(','));
+        this.structHash = Hash(this.list.map((item) => item.StructHash).join(','));
       } break;
       default: {
         this.type = ValueType.Unknow;
-        this.typeHash = Value.UnknowHash;
+        this.structHash = Value.UnknowHash;
       }
     }
   }
