@@ -1,57 +1,48 @@
 import Lodash from 'lodash';
-import { Value } from "../value";
-import { ValueType } from "../valueType";
+import { Value } from '../value';
+import { ValueType } from '../valueType';
+import { IntfDef } from '../intfDef';
 
 export class Type {
+  private typeName: string;
   // TypeScript类型名称
   public get Name(): string {
-    if (this.value.IsBaseType) {
-      return this.value.Type.toString();
-    } else if (this.value.Type === ValueType.Record) {
-      return this.IntfName;
-    } else if (this.value.Type === ValueType.List) {
-      return 'any[]';
-    } else {
-      return ValueType.Unknow.toString();
-    }
+    return this.typeName;
   }
 
-  /**
-   * 此类型使用到的类型列表
-   */
-  public get UseTypes(): Type[] {
-    return [];
-  }
-
-  /**
-   * 此类型直接依赖的类型列表
-   */
-  public get DepTypes(): Type[] {
-    const result: Type[] = [];
-    switch (this.value.Type) {
-      case ValueType.Record: {
-        // this.value.Fields.forEach((field) => {
-        //   field.Type.
-        // });
-      } break;
-      case ValueType.List: {
-
-      } break;
-      default:;
-    }
-    return result;
+  private intfs: IntfDef[];
+  public get Intfs(): IntfDef[] {
+    return this.intfs;
   }
 
   public get DirName(): string {
     return Lodash.camelCase(this.name);
   }
 
+  public get ClassName(): string {
+    return Lodash.upperFirst(Lodash.camelCase(this.name));
+  }
+
   public get IntfName(): string {
-    return `I${Lodash.upperFirst(Lodash.camelCase(this.name))}`;
+    return `I${this.ClassName}`;
   }
 
   public constructor(
     private value: Value,
     private name: string = '',
-  ) {}
+  ) {
+    this.intfs = [];
+    switch (value.Type) {
+      case ValueType.Record: {
+        this.typeName = this.IntfName;
+        this.intfs.push(new IntfDef(value, name));
+      } break;
+      case ValueType.List: {
+        this.typeName = 'any[]';
+      } break;
+      default: {
+        this.typeName = value.Type.toString();
+      }
+    }
+  }
 }
