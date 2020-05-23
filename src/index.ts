@@ -3,7 +3,9 @@ import { Value } from './value';
 import { Field } from './field';
 import Lodash from 'lodash';
 
-const value = new Value(rspObj.object);
+const field = new Field(rspObj.object, 'rsp');
+
+console.log(field.Type.IntfDefs[0].DepSubIntfDefs.map((intf) => intf.Name));
 
 function Do(
   value: any,

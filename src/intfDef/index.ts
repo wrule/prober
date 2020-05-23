@@ -40,7 +40,7 @@ export class IntfDef {
     // 获取接口依赖的子级接口列表
     const result: IntfDef[] = [];
     this.value.Fields.forEach((field) => {
-      result.push(...field.Type.Intfs);
+      result.push(...field.Type.IntfDefs);
     });
     this.depSubIntfDefs = result;
     // 强制加上前缀I
