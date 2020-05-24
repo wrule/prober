@@ -2,31 +2,30 @@ import Lodash from 'lodash';
 import { Value } from '../value';
 import { ValueType } from '../valueType';
 import { IntfDef } from '../intfDef';
+import { TypeKind } from '../typeKind';
 
 export class Type {
-  private typeName: string;
-  // TypeScript类型描述
-  public get Name(): string {
-    return this.typeName;
+  private kind: TypeKind = TypeKind.Any;
+  public get Kind(): TypeKind {
+    return this.kind;
   }
 
-  private intfDefs: IntfDef[];
-  // 类型描述中蕴含的接口定义列表
+  private typeDesc: string = '';
+  public get TypeDesc(): string {
+    return this.typeDesc;
+  }
+
+  private intfDefs: IntfDef[] = [];
   public get IntfDefs(): IntfDef[] {
     return this.intfDefs;
   }
 
-  // 如果字段为记录的话，生成接口名
-  private recordIntfName(name: string): string {
+  private interfaceName(name: string): string {
     return `I${Lodash.upperFirst(Lodash.camelCase(name))}`;
   }
 
-  /**
-   * 如果字段为记录数组的话，生成接口名
-   * @param name 输入的字段名称
-   */
-  private recordArrayItemIntfName(name: string): string {
-    return `I${Lodash.upperFirst(Lodash.camelCase(name))}Array_Item`;
+  private hashIsConsistent(values: Value[]): boolean {
+    return new Set(values.map((value) => value.StructHash)).values.length < 2;
   }
 
   /**
@@ -38,44 +37,50 @@ export class Type {
     private value: Value,
     private name: string = '',
   ) {
-    this.intfDefs = [];
     switch (this.value.Type) {
+      case ValueType.Boolean: {
+        this.kind = TypeKind.Boolean;
+        this.typeDesc = TypeKind.Boolean.toString();
+      } break;
+      case ValueType.Number: {
+        this.kind = TypeKind.Number;
+        this.typeDesc = TypeKind.Number.toString();
+      } break;
+      case ValueType.String: {
+        this.kind = TypeKind.String;
+        this.typeDesc = TypeKind.String.toString();
+      } break;
+      case ValueType.Date: {
+        this.kind = TypeKind.Date;
+        this.typeDesc = TypeKind.Date.toString();
+      } break;
       case ValueType.Record: {
-        this.typeName = this.recordIntfName(this.name);
-        this.intfDefs.push(new IntfDef(this.value, this.typeName));
+        this.kind = TypeKind.Interface;
+        this.typeDesc = this.interfaceName(this.name);
+        this.intfDefs.push(new IntfDef(this.value, this.typeDesc));
       } break;
       case ValueType.List: {
-        this.typeName = '';
-        // 对数组元素分析求解，这可是很复杂的
+
         const list = this.value.List;
         if (list.length > 0) {
-          const hashs = Array.from(new Set(list.map((item) => item.StructHash)));
-          // 数组结构一致
-          if (hashs.length < 2) {
+          if (this.hashIsConsistent(list)) {
             const first = list[0];
-            switch (first.Type) {
-              case ValueType.Record: {
-                this.typeName = this.recordArrayItemIntfName(this.name);
-                this.intfDefs.push(new IntfDef(first, this.typeName));
-                console.log(this.typeName);
-              } break;
-              case ValueType.List: {
-
-              } break;
-              default: {
-                this.typeName = `${first.Type.toString()}[]`;
-                console.log(this.typeName);
-              }
-            }
+            const itemName = `${this.name}ArrayItem`;
+            const itemType = new Type(first, itemName);
+            this.typeDesc = `${itemType.TypeDesc}[]`;
+            this.intfDefs.push(...itemType.IntfDefs);
           } else {
 
           }
         } else {
-          this.typeName = 'any[]';
+          this.kind = TypeKind.Array;
+          this.typeDesc = `${TypeKind.Any.toString()}[]`;
         }
+
       } break;
       default: {
-        this.typeName = this.value.Type.toString();
+        this.kind = TypeKind.Any;
+        this.typeDesc = TypeKind.Any.toString();
       }
     }
   }
