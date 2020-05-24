@@ -1,4 +1,4 @@
-import rspObj from '../test/1.json';
+import rspObj from '../test/2.json';
 import { Value } from './value';
 import { Field } from './field';
 import Lodash from 'lodash';
