@@ -28,6 +28,14 @@ export class Type {
     return new Set(values.map((value) => value.StructHash)).values.length < 2;
   }
 
+  private isContainingUnknow(values: Value[]): boolean {
+    return values.some((value) => value.Type === ValueType.Unknow);
+  }
+
+  private filterOutUnknow(values: Value[]): Value[] {
+    return values.filter((value) => value.Type !== ValueType.Unknow);
+  }
+
   /**
    * 构造函数
    * @param value 待分析的值
@@ -64,15 +72,37 @@ export class Type {
         const list = this.value.List;
         if (list.length > 0) {
           if (this.hashIsConsistent(list)) {
+            // 标准的数组，hash一致
             const first = list[0];
             const itemName = `${this.name}ArrayItem`;
             const itemType = new Type(first, itemName);
             this.typeDesc = `${itemType.TypeDesc}[]`;
             this.intfDefs.push(...itemType.IntfDefs);
           } else {
-
+            const containingUnknow = this.isContainingUnknow(list);
+            if (containingUnknow) {
+              const filteredList = this.filterOutUnknow(list);
+              if (this.hashIsConsistent(filteredList)) {
+                // 元素可能为空的数组
+              } else {
+                // 元组
+              }
+            } else {
+              const tupleItemTypeDescList: string[] = [];
+              const tupleItemIntfDefs: IntfDef[] = [];
+              // 标准的元组
+              list.map((value, index) => {
+                const tupleItemName = `${this.name}TupleItem${index.toString()}${value.StructHash.slice(0, 4).toUpperCase()}`;
+                const tupleItemType = new Type(value, tupleItemName);
+                tupleItemTypeDescList.push(tupleItemType.TypeDesc);
+                tupleItemIntfDefs.push(...tupleItemType.IntfDefs);
+              });
+              this.typeDesc = `[${tupleItemTypeDescList.join(', ')}]`;
+              this.intfDefs = tupleItemIntfDefs;
+            }
           }
         } else {
+          // list长度为空，无法判断类型，故为any[]
           this.kind = TypeKind.Array;
           this.typeDesc = `${TypeKind.Any.toString()}[]`;
         }
