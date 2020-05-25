@@ -21,13 +21,16 @@ export class Field {
 
   private tsValue: Value;
   /**
-   * 字段原始值经过类型化转化之后的值
+   * 字段原始值经过初步类型化之后得到的值
    */
   public get Value(): Value {
     return this.tsValue;
   }
 
   private tsType: Type;
+  /**
+   * 字段的类型，这是一个复杂的对象
+   */
   public get Type(): Type {
     return this.tsType;
   }
