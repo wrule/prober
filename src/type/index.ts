@@ -117,9 +117,10 @@ export class Type {
     suffixs: string[] = [],
   ): [string, IntfDef[]] {
     const suffixsText = suffixs.join('_');
-    const name = `I${Lodash.upperFirst(Lodash.camelCase(desc))}${suffixsText ? `_${suffixsText}` : ''}`;
+    const name = `${Lodash.camelCase(desc)}${suffixsText ? `_${suffixsText}` : ''}`;
+    const intfName = `I${Lodash.upperFirst(Lodash.camelCase(desc))}${suffixsText ? `_${suffixsText}` : ''}`;
     const intfDefs = [new IntfDef(value, name)];
-    return [name, intfDefs];
+    return [intfName, intfDefs];
   }
 
   /**

@@ -1,16 +1,41 @@
-import rspObj from '../test/1.json';
+import rspObj from '../test/2.json';
 import { Value } from './value';
 import { Field } from './field';
 import Lodash from 'lodash';
+import { Type } from './type';
+import fs from 'fs';
+import path from 'path';
+import { IntfDef } from './intfDef';
 
-const field = new Field(rspObj.object, 'rsp');
-console.log(field.Type.IntfDefs[0].IntfCode.Code);
+
+function writeIntfToFile(
+  intf: IntfDef,
+  output: string,
+): void {
+  intf.DepSubIntfDefs.forEach((intf) => {
+    writeIntfToFile(intf, path.resolve(output, intf.DirName));
+  });
+  if (output) {
+    if (!fs.existsSync(output)) {
+      fs.mkdirSync(output, { recursive: true });
+    }
+    const codeFilePath = path.resolve(output, 'index.ts');
+    fs.writeFileSync(codeFilePath, intf.IntfCode.Code, 'utf8');
+  }
+}
 
 function Do(
   value: any,
   name: string = '',
   outpath?: string,
-): string {
+): Type {
   const field = new Field(value, name);
-  return '';
+  if (outpath) {
+    field.Type.IntfDefs.forEach((intf) => {
+      writeIntfToFile(intf, outpath);
+    });
+  }
+  return field.Type;
 }
+
+Do(rspObj.object, 'rsp', path.resolve(__dirname, 'output'));

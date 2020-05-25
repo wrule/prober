@@ -1,3 +1,4 @@
+import Lodash from 'lodash';
 import { Value } from "../value";
 import { Field } from "../field";
 import { IntfCode } from "../intfCode";
@@ -11,6 +12,10 @@ export class IntfDef {
    * 接口名称
    */
   public get Name(): string {
+    return `I${Lodash.upperFirst(this.name)}`;
+  }
+
+  public get DirName(): string {
     return this.name;
   }
 
@@ -44,13 +49,15 @@ export class IntfDef {
   ) {
     // 获取接口依赖的子级接口列表
     const result: IntfDef[] = [];
+    const nameSet = new Set<string>();
     this.value.Fields.forEach((field) => {
-      result.push(...field.Type.IntfDefs);
+      field.Type.IntfDefs.forEach((intf) => {
+        if (!nameSet.has(intf.Name)) {
+          result.push(intf);
+          nameSet.add(intf.Name);
+        }
+      });
     });
     this.depSubIntfDefs = result;
-    // 强制加上前缀I
-    if (!this.name.startsWith('I')) {
-      this.name = `I${this.name}`;
-    }
   }
 }
