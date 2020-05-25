@@ -77,6 +77,20 @@ export class Type {
   }
 
   /**
+   * 从某一个值中收集数组信息
+   * @param value 值
+   * @param desc 数组主要描述
+   * @param suffix 数组后缀描述
+   */
+  private collectArray(
+    value: Value,
+    desc: string = '',
+    suffix: string = '',
+  ): void {
+
+  }
+
+  /**
    * 构造函数
    * @param value 待分析的值
    * @param name 对于值的类型的主要描述（会经过规范化处理）
@@ -84,7 +98,7 @@ export class Type {
    */
   public constructor(
     private value: Value,
-    private name: string = '',
+    private desc: string = '',
     private suffix: string = '',
   ) {
     switch (this.value.Type) {
@@ -106,19 +120,19 @@ export class Type {
       } break;
       case ValueType.Record: {
         this.kind = TypeKind.Interface;
-        this.typeDesc = this.interfaceName(this.name);
+        this.typeDesc = this.interfaceName(this.desc);
         this.intfDefs.push(new IntfDef(this.value, this.typeDesc));
       } break;
       case ValueType.List: {
 
         const list = this.value.List;
         if (list.length > 0) {
-          console.log(this.name, 'list长度大于0');
+          console.log(this.desc, 'list长度大于0');
           if (this.hashIsConsistent(list)) {
             console.log('hash一致');
             // 标准的数组，hash一致
             const first = list[0];
-            const itemName = `${this.name}ArrayItem`;
+            const itemName = `${this.desc}ArrayItem`;
             const itemType = new Type(first, itemName);
             this.typeDesc = `${itemType.TypeDesc}[]`;
             this.intfDefs.push(...itemType.IntfDefs);
@@ -133,7 +147,7 @@ export class Type {
               }
             } else {
               // 标准的元组
-              const result = this.collectTuple(list, this.name, this.suffix);
+              const result = this.collectTuple(list, this.desc, this.suffix);
               this.typeDesc = result[0];
               this.intfDefs = result[1];
             }
