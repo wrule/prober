@@ -1,5 +1,5 @@
 /**
- * 此枚举描述了根据JavaScript的值初步推导出来的类型
+ * 此枚举描述了根据JavaScript的值初步推导出来的中间类型
  */
 export enum ValueType {
   // 以下五个类型为基础类型，其值可以直接用作TypeScript类型描述
