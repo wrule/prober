@@ -5,33 +5,52 @@ import { IntfDef } from '../intfDef';
 import { TypeKind } from '../typeKind';
 
 export class Type {
-  private kind: TypeKind = TypeKind.Any;
+  private kind: TypeKind;
+  /**
+   * 类型的种类，具体请参看typeKind
+   */
   public get Kind(): TypeKind {
     return this.kind;
   }
 
-  private typeDesc: string = '';
+  private typeDesc: string;
+  /**
+   * 类型描述，此值即为字段在TypeScript中的类型
+   */
   public get TypeDesc(): string {
     return this.typeDesc;
   }
 
-  private intfDefs: IntfDef[] = [];
+  private intfDefs: IntfDef[];
+  /**
+   * 此类型依赖的接口定义列表
+   */
   public get IntfDefs(): IntfDef[] {
     return this.intfDefs;
   }
 
-  private interfaceName(name: string): string {
-    return `I${Lodash.upperFirst(Lodash.camelCase(name))}`;
-  }
 
+
+  /**
+   * 判断多个值的结构hash是否一致
+   * @param values 值列表
+   */
   private hashIsConsistent(values: Value[]): boolean {
     return Array.from(new Set(values.map((value) => value.StructHash))).length < 2;
   }
 
+  /**
+   * 判断多个值其中是否包含unknow类型的值
+   * @param values 值列表
+   */
   private isContainingUnknow(values: Value[]): boolean {
     return values.some((value) => value.Type === ValueType.Unknow);
   }
 
+  /**
+   * 从值列表中过滤掉unknow类型的值，并返回过滤结果
+   * @param values 值列表
+   */
   private filterOutUnknow(values: Value[]): Value[] {
     return values.filter((value) => value.Type !== ValueType.Unknow);
   }
@@ -39,7 +58,8 @@ export class Type {
   /**
    * 从值列表中收集元组信息
    * @param values 值列表
-   * @param name 元组描述名
+   * @param desc 主要描述
+   * @param suffixs 后缀描述
    */
   private collectTuple(
     values: Value[],
@@ -60,8 +80,8 @@ export class Type {
         const kindNum = Array.from(hashTypeMap.values()).filter(
           (type) => type.Kind === TypeKind.Interface
         ).length + 1;
-        const kindCode = curHash.slice(0, 8).toUpperCase();
-        const newTypeSuffix = `TupleItemKind${kindNum}_${kindCode}`;
+        const kindCode = curHash.slice(0, 4).toUpperCase();
+        const newTypeSuffix = `TupleItemKind${kindNum}x${kindCode}`;
         const newType = new Type(value, name, suffixs.concat([newTypeSuffix]));
         hashTypeMap.set(curHash, newType);
         typeList.push(newType);
@@ -79,8 +99,8 @@ export class Type {
   /**
    * 锚定某一个值，且收集数组信息
    * @param value 值
-   * @param desc 数组主要描述
-   * @param suffixs 数组后缀描述
+   * @param desc 主要描述
+   * @param suffixs 后缀描述
    */
   private collectArray(
     value: Value,
@@ -113,6 +133,7 @@ export class Type {
     private desc: string = '',
     private suffixs: string[] = [],
   ) {
+    this.intfDefs = [];
     switch (this.value.Type) {
       case ValueType.Boolean: {
         this.kind = TypeKind.Boolean;
@@ -132,9 +153,7 @@ export class Type {
       } break;
       case ValueType.Record: {
         this.kind = TypeKind.Interface;
-        const result = this.collectInterface(this.value, this.desc, this.suffixs);
-        this.typeDesc = result[0];
-        this.intfDefs = result[1];
+        [this.typeDesc, this.intfDefs] = this.collectInterface(this.value, this.desc, this.suffixs);
       } break;
       case ValueType.List: {
         const list = this.value.List;
@@ -143,15 +162,11 @@ export class Type {
             // hash一致，为标准的数组
             this.kind = TypeKind.Array;
             const first = list[0];
-            const result = this.collectArray(first, this.desc, this.suffixs);
-            this.typeDesc = result[0];
-            this.intfDefs = result[1];
+            [this.typeDesc, this.intfDefs] = this.collectArray(first, this.desc, this.suffixs);
           } else {
             // hash不一致，为标准的元组
             this.kind = TypeKind.Tuple;
-            const result = this.collectTuple(list, this.desc, this.suffixs);
-            this.typeDesc = result[0];
-            this.intfDefs = result[1];
+            [this.typeDesc, this.intfDefs] = this.collectTuple(list, this.desc, this.suffixs);
           }
         } else {
           // list长度为空，无法判断类型，故为any[]

@@ -1,5 +1,6 @@
 import { Value } from "../value";
 import { Field } from "../field";
+import { IntfCode } from "../intfCode";
 
 /**
  * 接口定义类
@@ -26,6 +27,10 @@ export class IntfDef {
    */
   public get DepSubIntfDefs(): IntfDef[] {
     return this.depSubIntfDefs;
+  }
+
+  public get IntfCode(): IntfCode {
+    return new IntfCode(this);
   }
 
   /**
