@@ -1,8 +1,6 @@
-import rspObj from '../test/2.json';
-import { Field } from './field';
-import { Type } from './type';
 import fs from 'fs';
 import path from 'path';
+import { Field } from './field';
 import { IntfDef } from './intfDef';
 
 /**
@@ -32,13 +30,24 @@ export class Prober {
     }
   }
 
+  /**
+   * 探测JavaScript的值的类型
+   * @param value JavaScript值
+   * @param desc 类型描述（一般为字段名）
+   * @param outPath 代码输出目录的路径
+   */
   public Do(
     value: any,
     desc: string = '',
-    outpath: string = '',
-  ): Type {
+    outPath: string = '',
+  ): Field {
     const field = new Field(value, desc);
-    return field.Type;
+    if (outPath) {
+      field.Type.IntfDefs.forEach((intfDef) => {
+        this.writeIntfDefToFile(intfDef, outPath);
+      });
+    }
+    return field;
   }
 
   public constructor() {}
