@@ -9,7 +9,7 @@
     "build": "tsc"
   },
   "repository": "https://github.com/wrule/prober",
-  "author": "鸡毛 <shihao.gu@perfma.com>",
+  "author": "鸡毛 <shihao.gu@jimao.com>",
   "license": "MIT",
   "private": false,
   "dependencies": {

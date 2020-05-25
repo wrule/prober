@@ -19,8 +19,8 @@
     ],
     "creator": {
       "uid": "132078224594309120",
-      "imgUrl": "perfma-default-biz-avatar.jpg",
-      "nickName": "杭州笨马网络技术有限公司"
+      "imgUrl": "jimao-default-biz-avatar.jpg",
+      "nickName": "鸡毛之家"
     },
     "machineList": {
       "xspider_1": [
@@ -28,7 +28,7 @@
           "cpuCores": 4,
           "diskTotalSize": 281341296640,
           "ip": "192.168.0.56",
-          "hostName": "xspider.dev.perfma-inc.net",
+          "hostName": "xspider.dev.jimao-inc.net",
           "machineId": "39652102348210176",
           "memoryTotalSize": 8202530816,
           "osName": "Linux",
@@ -40,7 +40,7 @@
         {
           "cpuCores": 2,
           "diskTotalSize": 108945207296,
-          "hostName": "stress101.perfma-inc.net",
+          "hostName": "stress101.jimao-inc.net",
           "ip": "192.168.0.101",
           "machineId": "42113759542509568",
           "memoryTotalSize": 3974828032,
@@ -51,7 +51,7 @@
         {
           "cpuCores": 2,
           "diskTotalSize": 108945207296,
-          "hostName": "stress102.perfma-inc.net",
+          "hostName": "stress102.jimao-inc.net",
           "ip": "192.168.0.102",
           "machineId": "42113802355867648",
           "memoryTotalSize": 3974828032,
@@ -73,7 +73,7 @@
         {
           "cpuCores": 2,
           "diskTotalSize": 106240409600,
-          "hostName": "xsea.dev.perfma-inc.net",
+          "hostName": "xsea.dev.jimao-inc.net",
           "ip": "192.168.0.36",
           "machineId": "51798575143714816",
           "memoryTotalSize": 3974942720,
@@ -84,7 +84,7 @@
         {
           "cpuCores": 2,
           "diskTotalSize": 108547723264,
-          "hostName": "stress103.perfma-inc.net",
+          "hostName": "stress103.jimao-inc.net",
           "ip": "192.168.0.103",
           "machineId": "55853540030021632",
           "memoryTotalSize": 3974828032,
@@ -259,7 +259,7 @@
           "params": [
             {
               "currentValue": "/home/admin/",
-              "defaultValue": "/home/admin/perfma",
+              "defaultValue": "/home/admin/jimao",
               "description": "目录",
               "name": "name"
             },
@@ -467,7 +467,7 @@
         "createTime": 1590054752366,
         "fileKey": "group1/M00/43/29/wKgAQl66n7eAECWkAABmjJPNdOI560.jmx",
         "fileSize": "0",
-        "groups": "{\"点击告警规则\":\"告警规则页面\",\"获取告警列表\":\"告警规则页面\",\"http://xspider-u_dev_perfma-inc_net/api/v2/xspider/alerter/alertRule/list\":\"告警规则页面\",\"编辑1112告警\":\"编辑进入告警\",\"禁用规则1112\":\"禁用启用告警\",\"启用规则1112\":\"禁用启用告警\"}",
+        "groups": "{\"点击告警规则\":\"告警规则页面\",\"获取告警列表\":\"告警规则页面\",\"http://xspider-u_dev_jimao-inc_net/api/v2/xspider/alerter/alertRule/list\":\"告警规则页面\",\"编辑1112告警\":\"编辑进入告警\",\"禁用规则1112\":\"禁用启用告警\",\"启用规则1112\":\"禁用启用告警\"}",
         "id": "48616381459988480",
         "isSerialize": false,
         "merchantId": "132078224594309120",
