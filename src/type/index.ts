@@ -29,8 +29,6 @@ export class Type {
     return this.intfDefs;
   }
 
-
-
   /**
    * 判断多个值的结构hash是否一致
    * @param values 值列表
