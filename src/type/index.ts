@@ -61,7 +61,7 @@ export class Type {
           (type) => type.Kind === TypeKind.Interface
         ).length + 1;
         const kindCode = curHash.slice(0, 4).toUpperCase();
-        const newTypeSuffix = `${suffix}_TupleItemKind${kindNum}${kindCode}`;
+        const newTypeSuffix = `${suffix ? `${suffix}_` : ''}TupleItemKind${kindNum}_${kindCode}`;
         const newType = new Type(value, name, newTypeSuffix);
         hashTypeMap.set(curHash, newType);
         typeList.push(newType);
@@ -120,7 +120,7 @@ export class Type {
       } break;
       case ValueType.Record: {
         this.kind = TypeKind.Interface;
-        this.typeDesc = this.interfaceName(this.desc);
+        this.typeDesc = `${this.interfaceName(this.desc)}_${this.suffix}`;
         this.intfDefs.push(new IntfDef(this.value, this.typeDesc));
       } break;
       case ValueType.List: {
@@ -132,8 +132,7 @@ export class Type {
             console.log('hash一致');
             // 标准的数组，hash一致
             const first = list[0];
-            const itemName = `${this.desc}ArrayItem`;
-            const itemType = new Type(first, itemName);
+            const itemType = new Type(first, this.desc, 'ArrayItem');
             this.typeDesc = `${itemType.TypeDesc}[]`;
             this.intfDefs.push(...itemType.IntfDefs);
           } else {
