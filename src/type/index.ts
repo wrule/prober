@@ -25,7 +25,7 @@ export class Type {
   }
 
   private hashIsConsistent(values: Value[]): boolean {
-    return new Set(values.map((value) => value.StructHash)).values.length < 2;
+    return Array.from(new Set(values.map((value) => value.StructHash))).length < 2;
   }
 
   private isContainingUnknow(values: Value[]): boolean {
@@ -37,13 +37,55 @@ export class Type {
   }
 
   /**
+   * 从值列表中收集元组信息
+   * @param values 值列表
+   * @param name 元组描述名
+   */
+  private collectTuple(
+    values: Value[],
+    name: string = '',
+    suffix: string = '',
+  ): [string, IntfDef[]] {
+    // 存放所有元组项目的类型列表
+    const typeList: Type[] = [];
+    // 存放所有元组项目的值的hash和对应类型的映射（用于元组内根据hash聚类）
+    const hashTypeMap = new Map<string, Type>();
+    // 收集元组内所有项目的类型信息
+    values.forEach((value) => {
+      const curHash = value.StructHash;
+      if (hashTypeMap.has(curHash)) {
+        const existingType = hashTypeMap.get(curHash) as Type;
+        typeList.push(existingType);
+      } else {
+        const kindNum = Array.from(hashTypeMap.values()).filter(
+          (type) => type.Kind === TypeKind.Interface
+        ).length + 1;
+        const kindCode = curHash.slice(0, 4).toUpperCase();
+        const newTypeSuffix = `${suffix}_TupleItemKind${kindNum}${kindCode}`;
+        const newType = new Type(value, name, newTypeSuffix);
+        hashTypeMap.set(curHash, newType);
+        typeList.push(newType);
+      }
+    });
+    // 整理输出结果
+    const tupleTypeDesc: string = `[${typeList.map((type) => type.TypeDesc).join(', ')}]`;
+    const tupleIntfDefs: IntfDef[] = [];
+    typeList.forEach((type) => {
+      tupleIntfDefs.push(...type.IntfDefs);
+    });
+    return [tupleTypeDesc, tupleIntfDefs];
+  }
+
+  /**
    * 构造函数
    * @param value 待分析的值
-   * @param name 对于值的类型的描述
+   * @param name 对于值的类型的主要描述（会经过规范化处理）
+   * @param suffix 对于值的类型的后缀描述（不会经过规范化处理）
    */
   public constructor(
     private value: Value,
     private name: string = '',
+    private suffix: string = '',
   ) {
     switch (this.value.Type) {
       case ValueType.Boolean: {
@@ -71,7 +113,9 @@ export class Type {
 
         const list = this.value.List;
         if (list.length > 0) {
+          console.log(this.name, 'list长度大于0');
           if (this.hashIsConsistent(list)) {
+            console.log('hash一致');
             // 标准的数组，hash一致
             const first = list[0];
             const itemName = `${this.name}ArrayItem`;
@@ -88,17 +132,10 @@ export class Type {
                 // 元组
               }
             } else {
-              const tupleItemTypeDescList: string[] = [];
-              const tupleItemIntfDefs: IntfDef[] = [];
               // 标准的元组
-              list.map((value, index) => {
-                const tupleItemName = `${this.name}TupleItem${index.toString()}${value.StructHash.slice(0, 4).toUpperCase()}`;
-                const tupleItemType = new Type(value, tupleItemName);
-                tupleItemTypeDescList.push(tupleItemType.TypeDesc);
-                tupleItemIntfDefs.push(...tupleItemType.IntfDefs);
-              });
-              this.typeDesc = `[${tupleItemTypeDescList.join(', ')}]`;
-              this.intfDefs = tupleItemIntfDefs;
+              const result = this.collectTuple(list, this.name, this.suffix);
+              this.typeDesc = result[0];
+              this.intfDefs = result[1];
             }
           }
         } else {
