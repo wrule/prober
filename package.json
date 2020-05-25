@@ -4,7 +4,7 @@
   "description": "Get TypeScript type from JavaScript value and generate TypeScript code",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "node dist/index.js",
+    "dev": "node test/index.js",
     "watch": "tsc -w",
     "build": "tsc"
   },
