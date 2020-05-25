@@ -1,0 +1,10 @@
+{
+  "object": [1, 2, 3, {
+    "name": "jimao",
+    "sex": true,
+    "age": 27,
+    "list": [
+      { "x": 3 }
+    ]
+  }]
+}

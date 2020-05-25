@@ -44,7 +44,7 @@ export class Type {
   private collectTuple(
     values: Value[],
     name: string = '',
-    suffix: string = '',
+    suffixs: string[] = [],
   ): [string, IntfDef[]] {
     // 存放所有元组项目的类型列表
     const typeList: Type[] = [];
@@ -60,9 +60,9 @@ export class Type {
         const kindNum = Array.from(hashTypeMap.values()).filter(
           (type) => type.Kind === TypeKind.Interface
         ).length + 1;
-        const kindCode = curHash.slice(0, 4).toUpperCase();
-        const newTypeSuffix = `${suffix ? `${suffix}_` : ''}TupleItemKind${kindNum}_${kindCode}`;
-        const newType = new Type(value, name, newTypeSuffix);
+        const kindCode = curHash.slice(0, 8).toUpperCase();
+        const newTypeSuffix = `TupleItemKind${kindNum}_${kindCode}`;
+        const newType = new Type(value, name, suffixs.concat([newTypeSuffix]));
         hashTypeMap.set(curHash, newType);
         typeList.push(newType);
       }
@@ -77,90 +77,91 @@ export class Type {
   }
 
   /**
-   * 从某一个值中收集数组信息
+   * 锚定某一个值，且收集数组信息
    * @param value 值
    * @param desc 数组主要描述
-   * @param suffix 数组后缀描述
+   * @param suffixs 数组后缀描述
    */
   private collectArray(
     value: Value,
     desc: string = '',
-    suffix: string = '',
-  ): void {
+    suffixs: string[] = [],
+  ): [string, IntfDef[]] {
+    const arrayItemType = new Type(value, desc, suffixs.concat(['ArrayItem']));
+    return [`${arrayItemType.TypeDesc}[]`, arrayItemType.IntfDefs];
+  }
 
+  private collectInterface(
+    value: Value,
+    desc: string = '',
+    suffixs: string[] = [],
+  ): [string, IntfDef[]] {
+    const suffixsText = suffixs.join('_');
+    const name = `I${Lodash.upperFirst(Lodash.camelCase(desc))}${suffixsText ? `_${suffixsText}` : ''}`;
+    const intfDefs = [new IntfDef(value, name)];
+    return [name, intfDefs];
   }
 
   /**
    * 构造函数
    * @param value 待分析的值
    * @param name 对于值的类型的主要描述（会经过规范化处理）
-   * @param suffix 对于值的类型的后缀描述（不会经过规范化处理）
+   * @param suffixs 对于值的类型的后缀描述（不会经过规范化处理）
    */
   public constructor(
     private value: Value,
     private desc: string = '',
-    private suffix: string = '',
+    private suffixs: string[] = [],
   ) {
     switch (this.value.Type) {
       case ValueType.Boolean: {
         this.kind = TypeKind.Boolean;
-        this.typeDesc = TypeKind.Boolean.toString();
+        this.typeDesc = TypeKind.Boolean;
       } break;
       case ValueType.Number: {
         this.kind = TypeKind.Number;
-        this.typeDesc = TypeKind.Number.toString();
+        this.typeDesc = TypeKind.Number;
       } break;
       case ValueType.String: {
         this.kind = TypeKind.String;
-        this.typeDesc = TypeKind.String.toString();
+        this.typeDesc = TypeKind.String;
       } break;
       case ValueType.Date: {
         this.kind = TypeKind.Date;
-        this.typeDesc = TypeKind.Date.toString();
+        this.typeDesc = TypeKind.Date;
       } break;
       case ValueType.Record: {
         this.kind = TypeKind.Interface;
-        this.typeDesc = `${this.interfaceName(this.desc)}_${this.suffix}`;
-        this.intfDefs.push(new IntfDef(this.value, this.typeDesc));
+        const result = this.collectInterface(this.value, this.desc, this.suffixs);
+        this.typeDesc = result[0];
+        this.intfDefs = result[1];
       } break;
       case ValueType.List: {
-
         const list = this.value.List;
         if (list.length > 0) {
-          console.log(this.desc, 'list长度大于0');
           if (this.hashIsConsistent(list)) {
-            console.log('hash一致');
-            // 标准的数组，hash一致
+            // hash一致，为标准的数组
+            this.kind = TypeKind.Array;
             const first = list[0];
-            const itemType = new Type(first, this.desc, 'ArrayItem');
-            this.typeDesc = `${itemType.TypeDesc}[]`;
-            this.intfDefs.push(...itemType.IntfDefs);
+            const result = this.collectArray(first, this.desc, this.suffixs);
+            this.typeDesc = result[0];
+            this.intfDefs = result[1];
           } else {
-            const containingUnknow = this.isContainingUnknow(list);
-            if (containingUnknow) {
-              const filteredList = this.filterOutUnknow(list);
-              if (this.hashIsConsistent(filteredList)) {
-                // 元素可能为空的数组
-              } else {
-                // 元组
-              }
-            } else {
-              // 标准的元组
-              const result = this.collectTuple(list, this.desc, this.suffix);
-              this.typeDesc = result[0];
-              this.intfDefs = result[1];
-            }
+            // hash不一致，为标准的元组
+            this.kind = TypeKind.Tuple;
+            const result = this.collectTuple(list, this.desc, this.suffixs);
+            this.typeDesc = result[0];
+            this.intfDefs = result[1];
           }
         } else {
           // list长度为空，无法判断类型，故为any[]
           this.kind = TypeKind.Array;
-          this.typeDesc = `${TypeKind.Any.toString()}[]`;
+          this.typeDesc = `${TypeKind.Any}[]`;
         }
-
       } break;
       default: {
         this.kind = TypeKind.Any;
-        this.typeDesc = TypeKind.Any.toString();
+        this.typeDesc = TypeKind.Any;
       }
     }
   }

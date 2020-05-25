@@ -1,11 +1,10 @@
-import rspObj from '../test/1.json';
+import rspObj from '../test/3.json';
 import { Value } from './value';
 import { Field } from './field';
 import Lodash from 'lodash';
 
 const field = new Field(rspObj.object, 'rsp');
-
-console.log(field.Type.IntfDefs[0].Fields.map((field) => [field.SrcName, field.Type.TypeDesc]));
+console.log(field.Type.IntfDefs[0].Name);
 
 function Do(
   value: any,
