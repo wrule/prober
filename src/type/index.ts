@@ -1,126 +1,9 @@
 import Lodash from 'lodash';
 import { Value } from '../value';
 import { ValueType } from '../valueType';
-import { IntfDef } from '../intfDef';
 import { TypeKind } from '../typeKind';
 
 export class Type {
-  private kind: TypeKind;
-  /**
-   * 类型的种类，具体请参看typeKind
-   */
-  public get Kind(): TypeKind {
-    return this.kind;
-  }
-
-  private typeDesc: string;
-  /**
-   * 类型描述，此值即为字段在TypeScript中的类型
-   */
-  public get TypeDesc(): string {
-    return this.typeDesc;
-  }
-
-  private intfDefs: IntfDef[];
-  /**
-   * 此类型依赖的接口定义列表
-   */
-  public get IntfDefs(): IntfDef[] {
-    return this.intfDefs;
-  }
-
-  /**
-   * 判断多个值的结构hash是否一致
-   * @param values 值列表
-   */
-  private hashIsConsistent(values: Value[]): boolean {
-    return Array.from(new Set(values.map((value) => value.StructHash))).length < 2;
-  }
-
-  /**
-   * 判断多个值其中是否包含unknow类型的值
-   * @param values 值列表
-   */
-  private isContainingUnknow(values: Value[]): boolean {
-    return values.some((value) => value.Type === ValueType.Unknow);
-  }
-
-  /**
-   * 从值列表中过滤掉unknow类型的值，并返回过滤结果
-   * @param values 值列表
-   */
-  private filterOutUnknow(values: Value[]): Value[] {
-    return values.filter((value) => value.Type !== ValueType.Unknow);
-  }
-
-  /**
-   * 从值列表中收集元组信息
-   * @param values 值列表
-   * @param desc 主要描述
-   * @param suffixs 后缀描述
-   */
-  private collectTuple(
-    values: Value[],
-    name: string = '',
-    suffixs: string[] = [],
-  ): [string, IntfDef[]] {
-    // 存放所有元组项目的类型列表
-    const typeList: Type[] = [];
-    // 存放所有元组项目的值的hash和对应类型的映射（用于元组内根据hash聚类）
-    const hashTypeMap = new Map<string, Type>();
-    // 收集元组内所有项目的类型信息
-    values.forEach((value) => {
-      const curHash = value.StructHash;
-      if (hashTypeMap.has(curHash)) {
-        const existingType = hashTypeMap.get(curHash) as Type;
-        typeList.push(existingType);
-      } else {
-        const kindNum = Array.from(hashTypeMap.values()).filter(
-          (type) => type.Kind === TypeKind.Interface
-        ).length + 1;
-        const kindCode = curHash.slice(0, 4).toUpperCase();
-        const newTypeSuffix = `TupleItemKind${kindNum}x${kindCode}`;
-        const newType = new Type(value, name, suffixs.concat([newTypeSuffix]));
-        hashTypeMap.set(curHash, newType);
-        typeList.push(newType);
-      }
-    });
-    // 整理输出结果
-    const tupleTypeDesc: string = `[${typeList.map((type) => type.TypeDesc).join(', ')}]`;
-    const tupleIntfDefs: IntfDef[] = [];
-    typeList.forEach((type) => {
-      tupleIntfDefs.push(...type.IntfDefs);
-    });
-    return [tupleTypeDesc, tupleIntfDefs];
-  }
-
-  /**
-   * 锚定某一个值，且收集数组信息
-   * @param value 值
-   * @param desc 主要描述
-   * @param suffixs 后缀描述
-   */
-  private collectArray(
-    value: Value,
-    desc: string = '',
-    suffixs: string[] = [],
-  ): [string, IntfDef[]] {
-    const arrayItemType = new Type(value, desc, suffixs.concat(['ArrayItem']));
-    return [`${arrayItemType.TypeDesc}[]`, arrayItemType.IntfDefs];
-  }
-
-  private collectInterface(
-    value: Value,
-    desc: string = '',
-    suffixs: string[] = [],
-  ): [string, IntfDef[]] {
-    const suffixsText = suffixs.join('_');
-    const name = `${Lodash.camelCase(desc)}${suffixsText ? `_${suffixsText}` : ''}`;
-    const intfName = `I${Lodash.upperFirst(Lodash.camelCase(desc))}${suffixsText ? `_${suffixsText}` : ''}`;
-    const intfDefs = [new IntfDef(value, name)];
-    return [intfName, intfDefs];
-  }
-
   // 数据是只有一种类型的列表
   // 元组是有多种类型的列表
 
@@ -131,30 +14,44 @@ export class Type {
   // 类型可以是多个类型构成的元组类型
 
 
+  private kind: TypeKind;
+  /**
+   * 类型种类
+   */
+  public get Kind(): TypeKind {
+    return this.kind;
+  }
+
   private types: Type[] = [];
-  // 此类型所依赖的类型
+  /**
+   * 类型依赖的类型
+   */
   public get Types(): Type[] {
     return this.types;
   }
 
+  private typeExps: string = '';
   /**
-   * 此类型的类型表达式（可用于输出的TypeScript代码中）
+   * 类型表达式（可直接用于TypeScript代码）
    */
   public get TypeExps(): string {
-    const result: (string) | (undefined) = '123';
-    const s = result?.slice(0, 1);
-    switch (this.kind) {
-      case TypeKind.Array: {
+    return `(${this.typeExps})`;
+  }
 
-      } break;
-      case TypeKind.Tuple: {
+  public get IsBase(): boolean {
+    return this.kind !== TypeKind.Interface &&
+      this.kind !== TypeKind.Array &&
+      this.kind !== TypeKind.Tuple;
+  }
 
-      } break;
-      default: {
-
-      }
-    }
-    return '';
+  private getInterfaceName(
+    desc: string = '',
+    suffixs: string[] = [],
+  ): string {
+    let suffixsText = suffixs.join('_');
+    suffixsText = suffixsText ? `_${suffixsText}` : '';
+    const name = Lodash.upperFirst(Lodash.camelCase(desc));
+    return `I${name}${suffixsText}`;
   }
 
   /**
@@ -168,50 +65,37 @@ export class Type {
     private desc: string = '',
     private suffixs: string[] = [],
   ) {
-    this.intfDefs = [];
     switch (this.value.Type) {
       case ValueType.Boolean: {
         this.kind = TypeKind.Boolean;
-        this.typeDesc = TypeKind.Boolean;
+        this.typeExps = TypeKind.Boolean;
       } break;
       case ValueType.Number: {
         this.kind = TypeKind.Number;
-        this.typeDesc = TypeKind.Number;
+        this.typeExps = TypeKind.Number;
       } break;
       case ValueType.String: {
         this.kind = TypeKind.String;
-        this.typeDesc = TypeKind.String;
+        this.typeExps = TypeKind.String;
       } break;
       case ValueType.Date: {
         this.kind = TypeKind.Date;
-        this.typeDesc = TypeKind.Date;
+        this.typeExps = TypeKind.Date;
       } break;
       case ValueType.Record: {
         this.kind = TypeKind.Interface;
-        [this.typeDesc, this.intfDefs] = this.collectInterface(this.value, this.desc, this.suffixs);
+        this.typeExps = this.getInterfaceName(this.desc, this.suffixs);
       } break;
       case ValueType.List: {
-        const list = this.value.List;
-        if (list.length > 0) {
-          if (this.hashIsConsistent(list)) {
-            // hash一致，为标准的数组
-            this.kind = TypeKind.Array;
-            const first = list[0];
-            [this.typeDesc, this.intfDefs] = this.collectArray(first, this.desc, this.suffixs);
-          } else {
-            // hash不一致，为标准的元组
-            this.kind = TypeKind.Tuple;
-            [this.typeDesc, this.intfDefs] = this.collectTuple(list, this.desc, this.suffixs);
-          }
+        this.kind = TypeKind.Array;
+        if (this.value.List.length > 0) {
+
         } else {
-          // list长度为空，无法判断类型，故为any[]
-          this.kind = TypeKind.Array;
-          this.typeDesc = `${TypeKind.Any}[]`;
+          this.types = [new Type(new Value(null))];
         }
       } break;
       default: {
         this.kind = TypeKind.Any;
-        this.typeDesc = TypeKind.Any;
       }
     }
   }
