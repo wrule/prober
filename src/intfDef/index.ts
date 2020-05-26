@@ -34,10 +34,6 @@ export class IntfDef {
     return this.depSubIntfDefs;
   }
 
-  public get IntfCode(): IntfCode {
-    return new IntfCode(this);
-  }
-
   /**
    * 构造函数
    * @param value 字段值

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Field } from './field';
 import { IntfDef } from './intfDef';
+import { IntfCode } from './intfCode';
 
 /**
  * 探测器类
@@ -26,7 +27,7 @@ export class Prober {
         fs.mkdirSync(outPath, { recursive: true });
       }
       const codeFilePath = path.join(outPath, 'index.ts');
-      fs.writeFileSync(codeFilePath, intfDef.IntfCode.Code);
+      fs.writeFileSync(codeFilePath, new IntfCode(intfDef).Code);
     }
   }
 
