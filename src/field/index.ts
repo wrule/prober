@@ -45,6 +45,6 @@ export class Field {
     private name: string = '',
   ) {
     this.tsValue = new Value(value);
-    this.tsType = new Type(this.tsValue, name);
+    this.tsType = new Type(this.tsValue, this.name);
   }
 }

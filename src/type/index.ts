@@ -121,6 +121,42 @@ export class Type {
     return [intfName, intfDefs];
   }
 
+  // 数据是只有一种类型的列表
+  // 元组是有多种类型的列表
+
+  // 类型可以是单个基本类型
+  // 类型可以是接口类型
+  // 类型可以是多个类型并列
+  // 类型可以是某一个类型构成的数组类型
+  // 类型可以是多个类型构成的元组类型
+
+
+  private types: Type[] = [];
+  // 此类型所依赖的类型
+  public get Types(): Type[] {
+    return this.types;
+  }
+
+  /**
+   * 此类型的类型表达式（可用于输出的TypeScript代码中）
+   */
+  public get TypeExps(): string {
+    const result: (string) | (undefined) = '123';
+    const s = result?.slice(0, 1);
+    switch (this.kind) {
+      case TypeKind.Array: {
+
+      } break;
+      case TypeKind.Tuple: {
+
+      } break;
+      default: {
+
+      }
+    }
+    return '';
+  }
+
   /**
    * 构造函数
    * @param value 待分析的值
