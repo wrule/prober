@@ -1,7 +1,6 @@
 import Lodash from 'lodash';
 import { Value } from "../value";
 import { Field } from "../field";
-import { IntfCode } from "../intfCode";
 
 /**
  * 接口定义类
