@@ -136,17 +136,24 @@ export class Type {
     this.kind = TypeKind.Union;
   }
 
-  /**
-   * 构造函数
-   * @param value 待分析的值
-   * @param name 对于值的类型的主要描述（会经过规范化处理）
-   * @param suffixs 对于值的类型的后缀描述（不会经过规范化处理）
-   */
+
   public constructor(
-    private value: Value,
+    private value: Value | Value[],
     private desc: string = '',
     private suffixs: string[] = [],
   ) {
+    const protName = Object.prototype.toString.call(this.value);
+    switch (protName) {
+      case '[object Array]': {
+
+      } break;
+      case '[object Object]': {
+
+      } break;
+      default: {
+
+      }
+    }
     switch (this.value.Type) {
       case ValueType.Boolean: {
         this.kind = TypeKind.Boolean;
