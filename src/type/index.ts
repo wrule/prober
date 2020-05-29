@@ -1,6 +1,7 @@
 import { TypeKind } from "../typeKind";
 import { Value } from "../value";
-import { ValueType } from "../valueType";
+import { ValueType } from '../valueType';
+import { IJsType } from '../jsType';
 import Lodash from 'lodash';
 
 export class Type {
@@ -104,30 +105,39 @@ export class Type {
    * @param json Json文本
    */
   public static Parse(json: string): Type {
-    const jsonObj = JSON.parse(json) as {
-      kind: string,
-      types: string[],
-      inftName: string,
-      intfMbrs: string[][],
-    };
-    return new Type(
-      jsonObj.kind as TypeKind,
-      jsonObj.types.map((typeJson) => Type.Parse(typeJson)),
-      jsonObj.inftName,
-      new Map<string, Type>(jsonObj.intfMbrs.map((mbr) => [mbr[0], Type.Parse(mbr[1])])),
-    );
+    return this.FromJs(JSON.parse(json));
   }
 
   /**
    * 序列化Type
    */
   public ToJson(): string {
-    return JSON.stringify({
-      kind: this.kind,
-      types: this.types.map((type) => type.ToJson()),
-      inftName: this.intfName,
-      intfMbrs: Array.from(this.intfMbrs.entries()).map((mbr) => [mbr[0], mbr[1].ToJson()]),
-    });
+    return JSON.stringify(this.ToJs());
+  }
+
+  /**
+   * TypeScript对象转化为JavaScript对象
+   */
+  public ToJs(): IJsType {
+    return {
+      kind: this.kind.toString(),
+      types: this.types.map((type) => type.ToJs()),
+      intfName: this.intfName,
+      intfMbrs: Array.from(this.intfMbrs.entries()).map((mbr) => [mbr[0], mbr[1].ToJs()]),
+    };
+  }
+
+  /**
+   * 从JavaScript对象构建TypeScript对象
+   * @param jsObj JavaScript对象
+   */
+  public static FromJs(jsObj: IJsType): Type {
+    return new Type(
+      jsObj.kind as TypeKind,
+      jsObj.types.map((type) => Type.FromJs(type)),
+      jsObj.intfName,
+      new Map<string, Type>(jsObj.intfMbrs.map((mbr) => [mbr[0], Type.FromJs(mbr[1])])),
+    );
   }
 
   public get Kind(): TypeKind {
