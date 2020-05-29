@@ -55,11 +55,13 @@ export class Value {
   }
 
   // 五种基础类型的结构hash值
-  private static UnknowHash: string = Hash(ValueType.Unknow);
+  private static NullHash: string = Hash(ValueType.Null);
+  private static UndefinedHash: string = Hash(ValueType.Undefined);
   private static BooleanHash: string = Hash(ValueType.Boolean);
   private static NumberHash: string = Hash(ValueType.Number);
   private static StringHash: string = Hash(ValueType.String);
   private static DateHash: string = Hash(ValueType.Date);
+  private static UnknowHash: string = Hash(ValueType.Unknow);
 
   private structHash: string = '';
   /**
@@ -78,6 +80,14 @@ export class Value {
   ) {
     const protName = Object.prototype.toString.call(value);
     switch (protName) {
+      case '[object Null]': {
+        this.type = ValueType.Null;
+        this.structHash = Value.NullHash;
+      } break;
+      case '[object Undefined]': {
+        this.type = ValueType.Undefined;
+        this.structHash = Value.UndefinedHash;
+      } break;
       case '[object Boolean]': {
         this.type = ValueType.Boolean;
         this.structHash = Value.BooleanHash;
