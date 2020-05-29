@@ -29,7 +29,7 @@ export class Type {
     let kind: TypeKind = TypeKind.Any;
     let types: Type[] = [];
     let intfName: string = '';
-    const inftMbrs = new Map<string, Type>();
+    const intfMbrs = new Map<string, Type>();
     switch (value.Type) {
       case ValueType.Null: kind = TypeKind.Null; break;
       case ValueType.Undefined: kind = TypeKind.Undefined; break;
@@ -41,7 +41,7 @@ export class Type {
         kind = TypeKind.Interface;
         intfName = this.getIntfName(desc, suffixs);
         value.Fields.forEach((field) => {
-          inftMbrs.set(field.SrcName, Type.Infer(field.Value, field.SrcName));
+          intfMbrs.set(field.SrcName, Type.Infer(field.Value, field.SrcName));
         });
       } break;
       case ValueType.List: {
@@ -56,26 +56,78 @@ export class Type {
       } break;
       default: kind = TypeKind.Any;
     }
-    return new Type(kind, types, intfName, inftMbrs);
+    return new Type(kind, types, intfName, intfMbrs);
   }
 
   public static Merge(type1: Type, type2: Type): Type | void {
+    if (type1.IsBase) {
+      if (type1.TypeDesc === type1.TypeDesc) {
+        return type2;
+      } else {
+        if (type2.Kind === TypeKind.Union) {
 
+        } else {
+          return new Type(TypeKind.Union, [type1, type2]);
+        }
+      }
+    } else {
+      switch (type1.Kind) {
+        case TypeKind.Interface:; break;
+        case TypeKind.Union:; break;
+        case TypeKind.Array:; break;
+        case TypeKind.Tuple:; break;
+      }
+    }
+  }
+
+  /**
+   * 判断两个类型是否可以合并
+   * @param type1 类型1
+   * @param type2 类型2
+   */
+  public static CanMerge(type1: Type, type2: Type): boolean {
+    return false;
+  }
+
+  /**
+   * 计算两个类型之间的相似度
+   * @param type1 类型1
+   * @param type2 类型2
+   * @returns 相似度 0 ~ 1
+   */
+  public static Similarity(type1: Type, type2: Type): number {
+    return 0;
   }
 
   /**
    * 反序列化Type
    * @param json Json文本
    */
-  public static Parse(json: string): Type | void {
-
+  public static Parse(json: string): Type {
+    const jsonObj = JSON.parse(json) as {
+      kind: string,
+      types: string[],
+      inftName: string,
+      intfMbrs: string[][],
+    };
+    return new Type(
+      jsonObj.kind as TypeKind,
+      jsonObj.types.map((typeJson) => Type.Parse(typeJson)),
+      jsonObj.inftName,
+      new Map<string, Type>(jsonObj.intfMbrs.map((mbr) => [mbr[0], Type.Parse(mbr[1])])),
+    );
   }
 
   /**
    * 序列化Type
    */
   public ToJson(): string {
-    return '';
+    return JSON.stringify({
+      kind: this.kind,
+      types: this.types.map((type) => type.ToJson()),
+      inftName: this.intfName,
+      intfMbrs: Array.from(this.intfMbrs.entries()).map((mbr) => [mbr[0], mbr[1].ToJson()]),
+    });
   }
 
   public get Kind(): TypeKind {
@@ -120,41 +172,12 @@ export class Type {
    * @param kind 类型的种类
    * @param types 类型依赖的类型
    * @param intfName 接口类型的接口名
-   * @param inffMbrs 接口类型的接口成员
+   * @param intfMbrs 接口类型的接口成员
    */
   public constructor(
     private kind: TypeKind = TypeKind.Any,
     private types: Type[] = [],
     private intfName: string = '',
-    private inffMbrs: Map<string, Type> = new Map<string, Type>(),
+    private intfMbrs: Map<string, Type> = new Map<string, Type>(),
   ) {}
-
-  // public constructor(
-  //   value: Value,
-  //   desc: string = '',
-  //   suffixs: string[] = [],
-  // ) {
-  //   switch (value.Type) {
-  //     case ValueType.Null: this.kind = TypeKind.Null; break;
-  //     case ValueType.Undefined: this.kind = TypeKind.Undefined; break;
-  //     case ValueType.Boolean: this.kind = TypeKind.Boolean; break;
-  //     case ValueType.Number: this.kind = TypeKind.Number; break;
-  //     case ValueType.String: this.kind = TypeKind.String; break;
-  //     case ValueType.Date: this.kind = TypeKind.Date; break;
-  //     case ValueType.Record: {
-  //       this.kind = TypeKind.Interface;
-  //       this.intfName = this.getIntfName(desc, suffixs);
-  //     } break;
-  //     case ValueType.List: {
-  //       this.kind = TypeKind.Array;
-  //       const list = value.List;
-  //       if (list.length > 0) {
-
-  //       } else {
-  //         this.types = [new Type(new Value(null))];
-  //       }
-  //     } break;
-  //     default: this.kind = TypeKind.Any;
-  //   }
-  // }
 }
