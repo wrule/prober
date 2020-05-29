@@ -100,6 +100,7 @@ export class Type {
     return 0;
   }
 
+  //#region 序列化持久化相关
   /**
    * 反序列化Type
    * @param json Json文本
@@ -112,7 +113,7 @@ export class Type {
    * 序列化Type
    */
   public ToJson(): string {
-    return JSON.stringify(this.ToJs());
+    return JSON.stringify(this.ToJs(), null, 2);
   }
 
   /**
@@ -139,6 +140,7 @@ export class Type {
       new Map<string, Type>(jsObj.intfMbrs.map((mbr) => [mbr[0], Type.FromJs(mbr[1])])),
     );
   }
+  //#endregion
 
   public get Kind(): TypeKind {
     return this.kind;

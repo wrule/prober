@@ -1,7 +1,12 @@
 const path = require('path');
-const { Prober } = require('../dist');
+const { Field } = require('../dist/field');
+const { Type } = require('../dist/type');
 const rspData = require('./1.json');
 
-const prober = new Prober();
-const field = prober.Do(rspData.object, 'rsp', path.join(__dirname, 'output'));
-console.log(field);
+const field = new Field(rspData.object, 'rsp');
+
+console.log(field.Value.Type);
+
+const type = Type.Infer(field.Value, field.SrcName);
+
+console.log(type.ToJson());

@@ -27,14 +27,6 @@ export class Field {
     return this.tsValue;
   }
 
-  private tsType: Type;
-  /**
-   * 字段的类型，这是一个复杂的对象
-   */
-  public get Type(): Type {
-    return this.tsType;
-  }
-
   /**
    * 构造函数
    * @param value 字段名称
@@ -45,6 +37,5 @@ export class Field {
     private name: string = '',
   ) {
     this.tsValue = new Value(value);
-    this.tsType = new Type(this.tsValue, this.name);
   }
 }
