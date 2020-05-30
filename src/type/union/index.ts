@@ -34,6 +34,11 @@ export class TypeUnion extends Type {
     types: Type[] = [],
   ) {
     super(TypeKind.Union, types);
-    this.hash = Hash(this.types.map((type) => type.Hash).join('|'));
+    // 排序后计算hash，这一步对于union类型来说是必须的
+    const hashsSorted = this.types
+      .map((type) => type.Hash)
+      .sort((a, b) => a.localeCompare(b))
+      .join('|');
+    this.hash = Hash(hashsSorted);
   }
 }
