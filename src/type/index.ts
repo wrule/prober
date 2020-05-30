@@ -1,5 +1,4 @@
 import { TypeKind } from '../typeKind';
-import { IJsType } from '../jsType';
 
 export abstract class Type {
   /**
@@ -19,44 +18,16 @@ export abstract class Type {
     return this.kind;
   }
 
-  /**
-   * 反序列化Type
-   * @param json Json文本
-   */
-  public static Parse(json: string): Type {
-    return this.FromJs(JSON.parse(json));
+  public get Types(): Type[] {
+    return this.types;
   }
 
-  /**
-   * 序列化Type
-   */
-  public ToJson(): string {
-    return JSON.stringify(this.ToJs(), null, 2);
+  public get IntfName(): string {
+    return this.intfName;
   }
 
-  /**
-   * TypeScript对象转化为JavaScript对象
-   */
-  public ToJs(): IJsType {
-    return {
-      kind: this.kind.toString(),
-      types: this.types.map((type) => type.ToJs()),
-      intfName: this.intfName,
-      intfMbrs: Array.from(this.intfMbrs.entries()).map((mbr) => [mbr[0], mbr[1].ToJs()]),
-    };
-  }
-
-  /**
-   * 从JavaScript对象构建TypeScript对象
-   * @param jsObj JavaScript对象
-   */
-  public static FromJs(jsObj: IJsType): Type {
-    return new Type(
-      jsObj.kind as TypeKind,
-      jsObj.types.map((type) => Type.FromJs(type)),
-      jsObj.intfName,
-      new Map<string, Type>(jsObj.intfMbrs.map((mbr) => [mbr[0], Type.FromJs(mbr[1])])),
-    );
+  public get IntfMbrs(): Map<string, Type> {
+    return this.intfMbrs;
   }
 
   /**
