@@ -1,6 +1,7 @@
 import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
+import { TypeUnion } from '../union';
 
 export class TypeUndefined extends Type {
   public get IsBase(): boolean {
@@ -16,8 +17,8 @@ export class TypeUndefined extends Type {
     return TypeUndefined.hash;
   }
 
-  public Merge(type: Type): Type {
-    return this;
+  public DiffMerge(type: Type): Type {
+    return new TypeUnion([this, type]);
   }
 
   public constructor() {

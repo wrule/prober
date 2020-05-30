@@ -16,7 +16,7 @@ export class TypeArray extends Type {
     return this.hash;
   }
 
-  public Merge(type: Type): Type {
+  public DiffMerge(type: Type): Type {
     return this;
   }
 

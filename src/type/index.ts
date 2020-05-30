@@ -20,7 +20,15 @@ export abstract class Type {
    * 将此类型与输入类型合并
    * @param type 输入类型
    */
-  public abstract Merge(type: Type): Type;
+  protected abstract DiffMerge(type: Type): Type;
+
+  public Merge(type: Type): Type {
+    if (this.Hash !== type.Hash) {
+      return this.DiffMerge(type);
+    } else {
+      return this;
+    }
+  }
 
   /**
    * 类型的种类
