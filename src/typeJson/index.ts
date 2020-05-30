@@ -56,31 +56,26 @@ export class TypeJSON {
    */
   private static FromJs(jsObj: IJsType): Type {
     switch (jsObj.kind) {
-      case TypeKind.Null: return new TypeNull(TypeKind.Null); break;
-      case TypeKind.Undefined: return new TypeUndefined(TypeKind.Undefined); break;
-      case TypeKind.Boolean: return new TypeBoolean(TypeKind.Boolean); break;
-      case TypeKind.Number: return new TypeNumber(TypeKind.Number); break;
-      case TypeKind.String: return new TypeString(TypeKind.String); break;
-      case TypeKind.Date: return new TypeDate(TypeKind.Date); break;
+      case TypeKind.Null: return new TypeNull();
+      case TypeKind.Undefined: return new TypeUndefined();
+      case TypeKind.Boolean: return new TypeBoolean();
+      case TypeKind.Number: return new TypeNumber();
+      case TypeKind.String: return new TypeString();
+      case TypeKind.Date: return new TypeDate();
       case TypeKind.Interface: return new TypeInterface(
-        TypeKind.Interface,
-        jsObj.types.map((type) => this.FromJs(type)),
         jsObj.intfName,
         new Map<string, Type>(jsObj.intfMbrs.map((mbr) => [mbr[0], this.FromJs(mbr[1])])),
-      ); break;
+      );
       case TypeKind.Union: return new TypeUnion(
-        TypeKind.Union,
         jsObj.types.map((type) => this.FromJs(type)),
-      ); break;
+      );
       case TypeKind.Array: return new TypeArray(
-        TypeKind.Array,
         jsObj.types.map((type) => this.FromJs(type)),
-      ); break;
+      );
       case TypeKind.Tuple: return new TypeTuple(
-        TypeKind.Tuple,
         jsObj.types.map((type) => this.FromJs(type)),
-      ); break;
-      default: return new TypeAny(TypeKind.Any);
+      );
+      default: return new TypeAny();
     }
   }
 }

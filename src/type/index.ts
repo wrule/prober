@@ -18,14 +18,23 @@ export abstract class Type {
     return this.kind;
   }
 
+  /**
+   * 类型依赖的类型
+   */
   public get Types(): Type[] {
     return this.types;
   }
 
+  /**
+   * 接口类型的接口名
+   */
   public get IntfName(): string {
     return this.intfName;
   }
 
+  /**
+   * 接口类型的接口成员
+   */
   public get IntfMbrs(): Map<string, Type> {
     return this.intfMbrs;
   }

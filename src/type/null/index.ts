@@ -1,4 +1,5 @@
 import { Type } from '../index';
+import { TypeKind } from '../../typeKind';
 
 export class TypeNull extends Type {
   public get IsBase(): boolean {
@@ -7,5 +8,9 @@ export class TypeNull extends Type {
 
   public get TypeDesc(): string {
     return this.kind.toString();
+  }
+
+  public constructor() {
+    super(TypeKind.Null);
   }
 }
