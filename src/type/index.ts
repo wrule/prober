@@ -12,6 +12,17 @@ export abstract class Type {
   public abstract TypeDesc: string;
 
   /**
+   * 用于描述类型结构的hash
+   */
+  public abstract Hash: string;
+
+  /**
+   * 将此类型与输入类型合并
+   * @param type 输入类型
+   */
+  public abstract Merge(type: Type): Type;
+
+  /**
    * 类型的种类
    */
   public get Kind(): TypeKind {

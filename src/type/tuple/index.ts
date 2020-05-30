@@ -1,5 +1,6 @@
 import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
+import { Hash } from '../../hash';
 
 export class TypeTuple extends Type {
   public get IsBase(): boolean {
@@ -10,9 +11,19 @@ export class TypeTuple extends Type {
     return `[${this.types.map((type) => type.TypeDesc).join(', ')}]`;
   }
 
+  private hash: string;
+  public get Hash(): string {
+    return this.hash;
+  }
+
+  public Merge(type: Type): Type {
+    return this;
+  }
+
   public constructor(
     types: Type[] = [],
   ) {
     super(TypeKind.Tuple, types);
+    this.hash = Hash(this.types.map((type) => type.Hash).join(','));
   }
 }
