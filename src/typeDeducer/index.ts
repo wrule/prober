@@ -37,12 +37,13 @@ export class TypeDeducer {
       }
       case ValueType.List: {
         const list = value.List;
-        if (list.length > 0) {
-          // 这里先一刀切判断吧
-          return new TypeArray([this.Deduce(list[0], desc, suffixs.concat('ArrayItem'))]);
-        } else {
-          return new TypeArray([new TypeAny()]);
+        const newSuffixs = suffixs.concat('ArrayItem');
+        let finalType = this.Deduce(list[0], desc, newSuffixs);
+        for (let i = 1; i < list.length; ++i) {
+          const curType = this.Deduce(list[i], desc, newSuffixs);
+          finalType = finalType.Merge(curType);
         }
+        return new TypeArray(finalType);
       }
       default: return new TypeAny();
     }

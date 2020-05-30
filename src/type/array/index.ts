@@ -26,28 +26,22 @@ export class TypeArray extends Type {
       return new TypeUnion([this, type]);
     } else {
       switch (type.Kind) {
-        case TypeKind.Interface: {
-          return new TypeUnion([this, type]);
-        } break;
-        case TypeKind.Union: {
-          return new TypeUnion([this, type]);
-        } break;
+        case TypeKind.Interface: return new TypeUnion([this, type]);
+        case TypeKind.Union: return new TypeUnion([this, type]);
         case TypeKind.Array: {
           const dstType = type as TypeArray;
-          return new TypeArray([this.ArrayItemType.Merge(dstType.ArrayItemType)]);
-        } break;
-        case TypeKind.Tuple: {
-
-        } break;
+          return new TypeArray(this.ArrayItemType.Merge(dstType.ArrayItemType));
+        }
+        case TypeKind.Tuple: return new TypeUnion([this, type]);
       }
     }
     return this;
   }
 
   public constructor(
-    types: Type[] = [],
+    type: Type,
   ) {
-    super(TypeKind.Array, types);
-    this.hash = Hash(`${this.types[0].Hash}[]`);
+    super(TypeKind.Array, [type]);
+    this.hash = Hash(`${this.ArrayItemType.Hash}[]`);
   }
 }
