@@ -33,9 +33,9 @@ export class TypeArray extends Type {
           return new TypeArray(this.ArrayItemType.Merge(dstType.ArrayItemType));
         }
         case TypeKind.Tuple: return new TypeUnion([this, type]);
+        default: return new TypeUnion([this, type]);
       }
     }
-    return this;
   }
 
   public constructor(

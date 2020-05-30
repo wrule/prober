@@ -17,7 +17,17 @@ export class TypeUnion extends Type {
   }
 
   public DiffMerge(type: Type): Type {
-    return this;
+    if (type.IsBase) {
+      return new TypeUnion([this, type]);
+    } else {
+      switch (type.Kind) {
+        case TypeKind.Interface: return new TypeUnion([this, type]);
+        case TypeKind.Union: return new TypeUnion([this, type]);
+        case TypeKind.Array: return new TypeUnion([this, type]);
+        case TypeKind.Tuple: return new TypeUnion([this, type]);
+        default: return new TypeUnion([this, type]);
+      }
+    }
   }
 
   public constructor(
