@@ -27,32 +27,38 @@ export class TypeInterface extends Type {
     return this.hash;
   }
 
+  /**
+   * 对两个接口类型进行比较，获取相似度
+   * @param type 需要对比的接口类型
+   * @returns 相似度，范围为[0,1]
+   */
+  private intfCompare(type: TypeInterface): number {
+    const thisKeys = Array.from(this.intfMbrs.keys());
+    const otherKeys = Array.from(type.intfMbrs.keys());
+    const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
+    const sameKeys = thisKeys.filter((key) => otherKeys.some((okey) => okey === key));
+    const typeWeight = 0.4;
+    const nameWeight = 1 - 0.4;
+    const weightList = sameKeys.map((key) => {
+      const type1 = this.intfMbrs.get(key) as Type;
+      const type2 = type.intfMbrs.get(key) as Type;
+      return nameWeight + (typeWeight * type1.Compare(type2));
+    });
+    let sumWeight = 0;
+    weightList.forEach((weight) => sumWeight += weight);
+    return sumWeight / allKeys.length;
+  }
+
   public Compare(type: Type): number {
     if (this.Hash !== type.Hash) {
       if (type.Kind === TypeKind.Interface) {
-        // 以下算法对于接口树进行了递归对比并且计算相似度总和
-        const intfType = type as TypeInterface;
-        const thisKeys = Array.from(this.intfMbrs.keys());
-        const otherKeys = Array.from(intfType.intfMbrs.keys());
-        const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
-        const sameKeys = thisKeys.filter((key) => otherKeys.some((okey) => okey === key));
-        const typeWeight = 0.4;
-        const nameWeight = 1 - 0.4;
-        const weightList = sameKeys.map((key) => {
-          const type1 = this.intfMbrs.get(key) as Type;
-          const type2 = intfType.intfMbrs.get(key) as Type;
-          return nameWeight + (typeWeight * type1.Compare(type2));
-        });
-        let sumWeight = 0;
-        weightList.forEach((weight) => sumWeight += weight);
-        return sumWeight / allKeys.length;
+        return this.intfCompare(type as TypeInterface);
       } else {
         return 0;
       }
     } else {
       return 1;
     }
-    return this.Hash === type.Hash ? 1 : 0;
   }
 
   public DiffMerge(type: Type): Type {
