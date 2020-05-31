@@ -49,15 +49,11 @@ export class TypeInterface extends Type {
     return sumWeight / allKeys.length;
   }
 
-  public Compare(type: Type): number {
-    if (this.Hash !== type.Hash) {
-      if (type.Kind === TypeKind.Interface) {
-        return this.intfCompare(type as TypeInterface);
-      } else {
-        return 0;
-      }
+  public DiffCompare(type: Type): number {
+    if (type.Kind === TypeKind.Interface) {
+      return this.intfCompare(type as TypeInterface);
     } else {
-      return 1;
+      return 0;
     }
   }
 

@@ -21,16 +21,12 @@ export class TypeArray extends Type {
     return this.types[0];
   }
 
-  public Compare(type: Type): number {
-    if (this.Hash !== type.Hash) {
-      if (type.Kind === TypeKind.Array) {
-        const arrayType = type as TypeArray;
-        return this.ArrayItemType.Compare(arrayType.ArrayItemType);
-      } else {
-        return 0;
-      }
+  public DiffCompare(type: Type): number {
+    if (type.Kind === TypeKind.Array) {
+      const arrayType = type as TypeArray;
+      return this.ArrayItemType.Compare(arrayType.ArrayItemType);
     } else {
-      return 1;
+      return 0;
     }
   }
 

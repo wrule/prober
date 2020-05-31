@@ -17,8 +17,8 @@ export class TypeAny extends Type {
     return TypeAny.hash;
   }
 
-  public Compare(type: Type): number {
-    return this.Hash === type.Hash ? 1 : 0;
+  public DiffCompare(type: Type): number {
+    return 0;
   }
 
   protected DiffMerge(type: Type): Type {

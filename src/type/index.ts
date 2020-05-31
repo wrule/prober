@@ -16,12 +16,20 @@ export abstract class Type {
    */
   public abstract Hash: string;
 
+  public abstract DiffCompare(type: Type): number;
+
   /**
    * 对比类型以获取两个类型之间的相似度
    * @param type 需比较的类型
    * @returns 相似度，范围为[0,1]
    */
-  public abstract Compare(type: Type): number;
+  public Compare(type: Type): number {
+    if (this.Hash !== type.Hash) {
+      return this.DiffCompare(type);
+    } else {
+      return 1;
+    }
+  }
 
   /**
    * 将此类型与输入类型合并

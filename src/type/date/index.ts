@@ -17,8 +17,8 @@ export class TypeDate extends Type {
     return TypeDate.hash;
   }
 
-  public Compare(type: Type): number {
-    return this.Hash === type.Hash ? 1 : 0;
+  public DiffCompare(type: Type): number {
+    return 0;
   }
 
   public DiffMerge(type: Type): Type {
