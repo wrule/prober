@@ -17,6 +17,13 @@ export abstract class Type {
   public abstract Hash: string;
 
   /**
+   * 对比类型以获取两个类型之间的相似度
+   * @param type 需比较的类型
+   * @returns 相似度，范围为[0,1]
+   */
+  public abstract Compare(type: Type): number;
+
+  /**
    * 将此类型与输入类型合并
    * @param type 输入类型
    */

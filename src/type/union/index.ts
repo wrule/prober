@@ -16,6 +16,10 @@ export class TypeUnion extends Type {
     return this.hash;
   }
 
+  public Compare(type: Type): number {
+    return this.Hash === type.Hash ? 1 : 0;
+  }
+
   public DiffMerge(type: Type): Type {
     if (type.IsBase) {
       return new TypeUnion([this, type]);

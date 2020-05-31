@@ -17,6 +17,10 @@ export class TypeNumber extends Type {
     return TypeNumber.hash;
   }
 
+  public Compare(type: Type): number {
+    return this.Hash === type.Hash ? 1 : 0;
+  }
+
   public DiffMerge(type: Type): Type {
     return new TypeUnion([this, type]);
   }

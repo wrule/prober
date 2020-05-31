@@ -21,6 +21,19 @@ export class TypeArray extends Type {
     return this.types[0];
   }
 
+  public Compare(type: Type): number {
+    if (this.Hash !== type.Hash) {
+      if (type.Kind === TypeKind.Array) {
+        const arrayType = type as TypeArray;
+        return this.ArrayItemType.Compare(arrayType.ArrayItemType);
+      } else {
+        return 0;
+      }
+    } else {
+      return 1;
+    }
+  }
+
   public DiffMerge(type: Type): Type {
     if (type.IsBase) {
       return new TypeUnion([this, type]);
