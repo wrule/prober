@@ -1,5 +1,8 @@
 import { TypeKind } from '../typeKind';
 
+/**
+ * Type抽象类
+ */
 export abstract class Type {
   /**
    * 类型是否为基础类型
@@ -7,7 +10,7 @@ export abstract class Type {
   public abstract IsBase: boolean;
 
   /**
-   * 类型描述（可在TypeScript代码中使用的类型）
+   * 类型描述（可在TypeScript代码中直接使用的类型）
    */
   public abstract TypeDesc: string;
 
@@ -19,7 +22,7 @@ export abstract class Type {
   public abstract DiffCompare(type: Type): number;
 
   /**
-   * 对比类型以获取两个类型之间的相似度
+   * 比较类型以获取两个类型之间的相似度
    * @param type 需比较的类型
    * @returns 相似度，范围为[0,1]
    */
