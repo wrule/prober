@@ -2,6 +2,7 @@ import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
+import { TypeUndefined } from '../undefined';
 
 export class TypeInterface extends Type {
   public get IsBase(): boolean {
@@ -39,17 +40,17 @@ export class TypeInterface extends Type {
   ): number {
     const thisKeys = Array.from(this.intfMbrs.keys());
     const otherKeys = Array.from(type.intfMbrs.keys());
-    const allKeysCount = Array.from(new Set(thisKeys.concat(otherKeys))).length;
-    const sameKeys = thisKeys.filter((key) => otherKeys.some((okey) => okey === key));
+    const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
     const nameWeight = 1 - 0.4;
-    const weightList = sameKeys.map((key) => {
-      const type1 = this.intfMbrs.get(key) as Type;
-      const type2 = type.intfMbrs.get(key) as Type;
+    const undefinedType = new TypeUndefined();
+    const weightList = allKeys.map((key) => {
+      const type1 = this.intfMbrs.get(key) || undefinedType;
+      const type2 = type.intfMbrs.get(key) || undefinedType;
       return nameWeight + (typeWeight * type1.Compare(type2));
     });
     let sumWeight = 0;
     weightList.forEach((weight) => sumWeight += weight);
-    return sumWeight / allKeysCount;
+    return sumWeight / allKeys.length;
   }
 
   public DiffCompare(type: Type): number {
