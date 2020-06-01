@@ -38,7 +38,8 @@ export class TypeUnion extends Type {
     types: Type[] = [],
   ) {
     super(TypeKind.Union, types);
-    // 排序后计算hash，这一步对于union类型来说是必须的
+    // 排序后计算hash，hash排序对于union类型来说是必须的
+    // union类型的hash为每一个可能的类型的hash通过|连接而生成的字符串的hash
     const hashsSorted = this.types
       .map((type) => type.Hash)
       .sort((a, b) => a.localeCompare(b))
