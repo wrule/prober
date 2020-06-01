@@ -2,6 +2,8 @@ const { Field } = require('../dist/field');
 const { TypeDeducer } = require('../dist/typeDeducer');
 const aObj = require('./a.json');
 const bObj = require('./b.json');
+delete aObj.d;
+bObj.d = undefined;
 
 console.log(aObj, bObj);
 const aField = new Field(aObj, 'test');
