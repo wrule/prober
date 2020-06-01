@@ -1,7 +1,6 @@
 import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
-import { TypeAny } from '../any';
 import { TypeUnion } from '../union';
 
 export class TypeInterface extends Type {
@@ -29,15 +28,19 @@ export class TypeInterface extends Type {
 
   /**
    * 对两个接口类型进行比较，获取相似度
+   * 这是一个递归求和算法，不算复杂，具体可以看代码
    * @param type 需要对比的接口类型
+   * @param typeWeight 类型在计算中所占的权重
    * @returns 相似度，范围为[0,1]
    */
-  private intfCompare(type: TypeInterface): number {
+  private intfCompare(
+    type: TypeInterface,
+    typeWeight: number = 0.4,
+  ): number {
     const thisKeys = Array.from(this.intfMbrs.keys());
     const otherKeys = Array.from(type.intfMbrs.keys());
-    const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
+    const allKeysCount = Array.from(new Set(thisKeys.concat(otherKeys))).length;
     const sameKeys = thisKeys.filter((key) => otherKeys.some((okey) => okey === key));
-    const typeWeight = 0.4;
     const nameWeight = 1 - 0.4;
     const weightList = sameKeys.map((key) => {
       const type1 = this.intfMbrs.get(key) as Type;
@@ -46,7 +49,7 @@ export class TypeInterface extends Type {
     });
     let sumWeight = 0;
     weightList.forEach((weight) => sumWeight += weight);
-    return sumWeight / allKeys.length;
+    return sumWeight / allKeysCount;
   }
 
   public DiffCompare(type: Type): number {
@@ -76,6 +79,7 @@ export class TypeInterface extends Type {
     intfMbrs: Map<string, Type> = new Map<string, Type>(),
   ) {
     super(TypeKind.Interface, [], intfName, intfMbrs);
+    // 接口类型的hash为排序后的接口成员名以及成员类型hash通过逗号连接的字符串的hash
     this.hash = Hash(this.MembersSorted.map((mbr) => `${mbr[0]}:${mbr[1].Hash}`).join(';'));
   }
 }
