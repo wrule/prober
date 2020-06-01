@@ -2,6 +2,7 @@ import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
+import { TypeUndefined } from '../undefined';
 
 export class TypeTuple extends Type {
   public get IsBase(): boolean {
@@ -17,8 +18,42 @@ export class TypeTuple extends Type {
     return this.hash;
   }
 
+  /**
+   * 对两个元组类型进行比较，获取相似度
+   * 这是一个按位递归对比算法
+   * @param type 需要对比的接口类型
+   * @param typeWeight 类型在计算中所占的权重
+   * @returns 相似度，范围为[0,1]
+   */
+  private tupleCompare(type: TypeTuple): number {
+    let longerTypes: Type[] = [];
+    let otherTypes: Type[] = [];
+    if (this.types.length > type.types.length) {
+      longerTypes = this.types;
+      otherTypes = type.types;
+    } else {
+      longerTypes = type.types;
+      otherTypes = this.types;
+    }
+    const weightList = longerTypes.map((ltype, index) => {
+      if (index < otherTypes.length) {
+        const otype = otherTypes[index];
+        return ltype.Compare(otype);
+      } else {
+        return ltype.Compare(new TypeUndefined());
+      }
+    });
+    let sumWeight = 0;
+    weightList.forEach((weight) => sumWeight += weight);
+    return sumWeight / longerTypes.length;
+  }
+
   public DiffCompare(type: Type): number {
-    return 0;
+    if (type.Kind === TypeKind.Tuple) {
+      return this.tupleCompare(type as TypeTuple);
+    } else {
+      return 0;
+    }
   }
 
   public DiffMerge(type: Type): Type {
@@ -39,6 +74,7 @@ export class TypeTuple extends Type {
     types: Type[] = [],
   ) {
     super(TypeKind.Tuple, types);
+    // 元组类型的hash为其中每个项目类型的hash通过,连接产生的字符串的hash
     this.hash = Hash(this.types.map((type) => type.Hash).join(','));
   }
 }

@@ -79,7 +79,7 @@ export class TypeInterface extends Type {
     intfMbrs: Map<string, Type> = new Map<string, Type>(),
   ) {
     super(TypeKind.Interface, [], intfName, intfMbrs);
-    // 接口类型的hash为排序后的接口成员名以及成员类型hash通过逗号连接的字符串的hash
+    // 接口类型的hash为排序后的接口成员名以及成员类型hash通过;连接的字符串的hash
     this.hash = Hash(this.MembersSorted.map((mbr) => `${mbr[0]}:${mbr[1].Hash}`).join(';'));
   }
 }
