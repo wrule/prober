@@ -1,12 +1,15 @@
-const path = require('path');
 const { Field } = require('../dist/field');
-const { Type } = require('../dist/type');
-const rspData = require('./1.json');
+const { TypeDeducer } = require('../dist/typeDeducer');
+const aObj = require('./a.json');
+const bObj = require('./b.json');
 
-const field = new Field(rspData.object, 'rsp');
-
-console.log(field.Value.Type);
-
-const type = Type.Infer(field.Value, field.SrcName);
-
-console.log(type.ToJson());
+console.log(aObj, bObj);
+const aField = new Field(aObj, 'test');
+const bField = new Field(bObj, 'test');
+const deducer = new TypeDeducer();
+const aType = deducer.Deduce(aField.Value, aField.SrcName);
+const bType = deducer.Deduce(bField.Value, bField.SrcName);
+console.log(aField.Value.Type);
+console.log(aType.TypeDesc);
+const num = aType.Compare(bType);
+console.log(num);
