@@ -16,6 +16,11 @@ export class TypeUnion extends Type {
     return this.hash;
   }
 
+  /**
+   * 相似度比较
+   * 联合类型除了和自身hash一致的类型之外，与其他类型的对比相似度为0
+   * @param type 对比类型
+   */
   public DiffCompare(type: Type): number {
     return 0;
   }

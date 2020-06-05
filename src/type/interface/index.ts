@@ -53,6 +53,12 @@ export class TypeInterface extends Type {
     return sumWeight / allKeys.length;
   }
 
+  /**
+   * 相似度比较
+   * 如果比较对象同为接口类型的话，则触发递归求和比较
+   * 如果类型为其他的话，相似度为0
+   * @param type 对比类型
+   */
   public DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Interface) {
       return this.intfCompare(type as TypeInterface);

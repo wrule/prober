@@ -17,10 +17,19 @@ export class TypeArray extends Type {
     return this.hash;
   }
 
+  /**
+   * 数组元素的类型
+   */
   public get ArrayItemType(): Type {
     return this.types[0];
   }
 
+  /**
+   * 相似度比较
+   * 如果比较对象同为数组类型的话，相似度取数组元素类型的相似度
+   * 如果类型为其他的话，相似度为0
+   * @param type 对比类型
+   */
   public DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Array) {
       const arrayType = type as TypeArray;

@@ -21,8 +21,7 @@ export class TypeTuple extends Type {
   /**
    * 对两个元组类型进行比较，获取相似度
    * 这是一个按位递归对比算法
-   * @param type 需要对比的接口类型
-   * @param typeWeight 类型在计算中所占的权重
+   * @param type 需要对比的元组类型
    * @returns 相似度，范围为[0,1]
    */
   private tupleCompare(type: TypeTuple): number {
@@ -48,6 +47,12 @@ export class TypeTuple extends Type {
     return sumWeight / longerTypes.length;
   }
 
+  /**
+   * 相似度比较
+   * 如果比较对象同为元组类型的话，则触按位比较
+   * 如果类型为其他的话，相似度为0
+   * @param type 对比类型
+   */
   public DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Tuple) {
       return this.tupleCompare(type as TypeTuple);
