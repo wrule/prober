@@ -40,19 +40,14 @@ export class TypeArray extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    if (type.IsBase) {
-      return new TypeUnion(this, type);
+    const simil = this.DiffCompare(type);
+    if (simil >= 1) {
+      return this;
+    } else if (simil >= 0.5) {
+      const arrayType = type as TypeArray;
+      return new TypeArray(this.ArrayItemType.Merge(arrayType.ArrayItemType));
     } else {
-      switch (type.Kind) {
-        case TypeKind.Interface: return new TypeUnion(this, type);
-        case TypeKind.Union: return new TypeUnion(this, type);
-        case TypeKind.Array: {
-          const dstType = type as TypeArray;
-          return new TypeArray(this.ArrayItemType.Merge(dstType.ArrayItemType));
-        }
-        case TypeKind.Tuple: return new TypeUnion(this, type);
-        default: return new TypeUnion(this, type);
-      }
+      return new TypeUnion(this, type);
     }
   }
 

@@ -3,6 +3,7 @@ import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeUndefined } from '../undefined';
+import { TypeAny } from '../any';
 
 export class TypeInterface extends Type {
   public get IsBase(): boolean {
@@ -67,17 +68,30 @@ export class TypeInterface extends Type {
     }
   }
 
+  private intfMerge(type: TypeInterface): TypeInterface {
+    const intfName = this.intfName;
+    const intfMbrs = new Map<string, Type>();
+    const thisKeys = Array.from(this.intfMbrs.keys());
+    const otherKeys = Array.from(type.intfMbrs.keys());
+    const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
+    const undefinedType = new TypeUndefined();
+    allKeys.forEach((key) => {
+      const type1 = this.intfMbrs.get(key) || undefinedType;
+      const type2 = type.intfMbrs.get(key) || undefinedType;
+      intfMbrs.set(key, type1.Merge(type2));
+    });
+    return new TypeInterface(intfName, intfMbrs);
+  }
+
   protected DiffMerge(type: Type): Type {
-    if (type.IsBase) {
-      return new TypeUnion(this, type);
+    const simil = this.DiffCompare(type);
+    if (simil >= 1) {
+      return this;
+    } else if (simil >= 0.5) {
+      const intfType = type as TypeInterface;
+      return this.intfMerge(intfType);
     } else {
-      switch (type.Kind) {
-        case TypeKind.Interface: return new TypeUnion(this, type);
-        case TypeKind.Union: return new TypeUnion(this, type);
-        case TypeKind.Array: return new TypeUnion(this, type)
-        case TypeKind.Tuple: return new TypeUnion(this, type);
-        default: return new TypeUnion(this, type);
-      }
+      return new TypeUnion(this, type);
     }
   }
 
