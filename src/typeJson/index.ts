@@ -66,7 +66,7 @@ export class TypeJSON {
         jsObj.intfName,
         new Map<string, Type>(jsObj.intfMbrs.map((mbr) => [mbr[0], this.FromJs(mbr[1])])),
       );
-      case TypeKind.Union: return new TypeUnion(jsObj.types.map((type) => this.FromJs(type)));
+      case TypeKind.Union: return new TypeUnion(...jsObj.types.map((type) => this.FromJs(type)));
       case TypeKind.Array: return new TypeArray(this.FromJs(jsObj.types[0]));
       case TypeKind.Tuple: return new TypeTuple(jsObj.types.map((type) => this.FromJs(type)));
       default: return new TypeAny();

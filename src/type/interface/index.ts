@@ -49,9 +49,13 @@ export class TypeInterface extends Type {
     const nameWeight = 1 - 0.4;
     const undefinedType = new TypeUndefined();
     const weightList = allKeys.map((key) => {
-      const type1 = this.intfMbrs.get(key) || undefinedType;
-      const type2 = type.intfMbrs.get(key) || undefinedType;
-      return nameWeight + (typeWeight * type1.Compare(type2));
+      const type1 = this.intfMbrs.get(key);
+      const type2 = type.intfMbrs.get(key);
+      if (type1 && type2) {
+        return nameWeight + (typeWeight * type1.Compare(type2));
+      } else {
+        return 0;
+      }
     });
     let sumWeight = 0;
     weightList.forEach((weight) => sumWeight += weight);
