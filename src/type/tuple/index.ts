@@ -18,13 +18,7 @@ export class TypeTuple extends Type {
     return this.hash;
   }
 
-  /**
-   * 对两个元组类型进行比较，获取相似度
-   * 这是一个按位递归对比算法
-   * @param type 需要对比的元组类型
-   * @returns 相似度，范围为[0,1]
-   */
-  private tupleCompare(type: TypeTuple): number {
+  private typesOrder(type: TypeTuple): [Type[], Type[]] {
     let longerTypes: Type[] = [];
     let otherTypes: Type[] = [];
     if (this.types.length > type.types.length) {
@@ -34,6 +28,17 @@ export class TypeTuple extends Type {
       longerTypes = type.types;
       otherTypes = this.types;
     }
+    return [longerTypes, otherTypes];
+  }
+
+  /**
+   * 对两个元组类型进行比较，获取相似度
+   * 这是一个按位递归对比算法
+   * @param type 需要对比的元组类型
+   * @returns 相似度，范围为[0,1]
+   */
+  private tupleCompare(type: TypeTuple): number {
+    const [longerTypes, otherTypes] = this.typesOrder(type);
     const weightList = longerTypes.map((ltype, index) => {
       if (index < otherTypes.length) {
         const otype = otherTypes[index];
@@ -61,17 +66,23 @@ export class TypeTuple extends Type {
     }
   }
 
+  private tupleMerge(type: TypeTuple): TypeTuple {
+    const [longerTypes, otherTypes] = this.typesOrder(type);
+    const undefinedType = new TypeUndefined();
+    const types = longerTypes.map((ltype, index) => {
+      return ltype.Merge(otherTypes[index] || undefinedType);
+    });
+    return new TypeTuple(types);
+  }
+
   protected DiffMerge(type: Type): Type {
-    if (type.IsBase) {
-      return new TypeUnion(this, type);
+    const simil = this.DiffCompare(type);
+    if (simil >= 1) {
+      return this;
+    } else if (simil >= 0.8) {
+      return this.tupleMerge(type as TypeTuple);
     } else {
-      switch (type.Kind) {
-        case TypeKind.Interface: return new TypeUnion(this, type);
-        case TypeKind.Union: return new TypeUnion(this, type);
-        case TypeKind.Array: return new TypeUnion(this, type);
-        case TypeKind.Tuple: return new TypeUnion(this, type);
-        default: return new TypeUnion(this, type);
-      }
+      return new TypeUnion(this, type);
     }
   }
 

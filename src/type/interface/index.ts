@@ -88,8 +88,7 @@ export class TypeInterface extends Type {
     if (simil >= 1) {
       return this;
     } else if (simil >= 0.5) {
-      const intfType = type as TypeInterface;
-      return this.intfMerge(intfType);
+      return this.intfMerge(type as TypeInterface);
     } else {
       return new TypeUnion(this, type);
     }
