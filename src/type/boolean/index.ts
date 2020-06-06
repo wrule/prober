@@ -22,7 +22,7 @@ export class TypeBoolean extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    return new TypeUnion([this, type]);
+    return new TypeUnion(this, type);
   }
 
   public constructor() {

@@ -63,14 +63,14 @@ export class TypeTuple extends Type {
 
   protected DiffMerge(type: Type): Type {
     if (type.IsBase) {
-      return new TypeUnion([this, type]);
+      return new TypeUnion(this, type);
     } else {
       switch (type.Kind) {
-        case TypeKind.Interface: return new TypeUnion([this, type]);
-        case TypeKind.Union: return new TypeUnion([this, type]);
-        case TypeKind.Array: return new TypeUnion([this, type]);
-        case TypeKind.Tuple: return new TypeUnion([this, type]);
-        default: return new TypeUnion([this, type]);
+        case TypeKind.Interface: return new TypeUnion(this, type);
+        case TypeKind.Union: return new TypeUnion(this, type);
+        case TypeKind.Array: return new TypeUnion(this, type);
+        case TypeKind.Tuple: return new TypeUnion(this, type);
+        default: return new TypeUnion(this, type);
       }
     }
   }
