@@ -17,7 +17,7 @@ export class TypeAny extends Type {
     return TypeAny.hash;
   }
 
-  public DiffCompare(type: Type): number {
+  protected DiffCompare(type: Type): number {
     return 0;
   }
 

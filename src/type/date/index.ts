@@ -17,11 +17,11 @@ export class TypeDate extends Type {
     return TypeDate.hash;
   }
 
-  public DiffCompare(type: Type): number {
+  protected DiffCompare(type: Type): number {
     return 0;
   }
 
-  public DiffMerge(type: Type): Type {
+  protected DiffMerge(type: Type): Type {
     return new TypeUnion([this, type]);
   }
 

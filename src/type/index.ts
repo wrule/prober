@@ -19,7 +19,9 @@ export abstract class Type {
    */
   public abstract Hash: string;
 
-  public abstract DiffCompare(type: Type): number;
+  protected abstract DiffCompare(type: Type): number;
+
+  protected abstract DiffMerge(type: Type): Type;
 
   /**
    * 比较类型以获取两个类型之间的相似度
@@ -35,11 +37,10 @@ export abstract class Type {
   }
 
   /**
-   * 将此类型与输入类型合并
-   * @param type 输入类型
+   * 尝试将此类型与传入类型合并
+   * @param type 传入类型
+   * @returns 合并后的类型
    */
-  protected abstract DiffMerge(type: Type): Type;
-
   public Merge(type: Type): Type {
     if (this.Hash !== type.Hash) {
       return this.DiffMerge(type);
