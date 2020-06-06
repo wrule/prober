@@ -10,6 +10,11 @@ export abstract class Type {
   public abstract IsBase: boolean;
 
   /**
+   * 类型是否代表着空数据
+   */
+  public abstract IsEmpty: boolean;
+
+  /**
    * 类型描述（可在TypeScript代码中直接使用的类型）
    */
   public abstract TypeDesc: string;

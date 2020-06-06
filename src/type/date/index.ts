@@ -8,6 +8,10 @@ export class TypeDate extends Type {
     return true;
   }
 
+  public get IsEmpty(): boolean {
+    return false;
+  }
+
   public get TypeDesc(): string {
     return this.kind.toString();
   }

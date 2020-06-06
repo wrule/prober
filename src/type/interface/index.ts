@@ -10,6 +10,10 @@ export class TypeInterface extends Type {
     return false;
   }
 
+  public get IsEmpty(): boolean {
+    return false;
+  }
+
   public get TypeDesc(): string {
     return this.intfName;
   }

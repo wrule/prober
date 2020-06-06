@@ -8,6 +8,10 @@ export class TypeNull extends Type {
     return true;
   }
 
+  public get IsEmpty(): boolean {
+    return true;
+  }
+
   public get TypeDesc(): string {
     return this.kind.toString();
   }

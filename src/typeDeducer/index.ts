@@ -36,14 +36,18 @@ export class TypeDeducer {
         );
       }
       case ValueType.List: {
-        const list = value.List;
-        const newSuffixs = suffixs.concat('ArrayItem');
-        let finalType = this.Deduce(list[0], desc, newSuffixs);
-        for (let i = 1; i < list.length; ++i) {
-          const curType = this.Deduce(list[i], desc, newSuffixs);
-          finalType = finalType.Merge(curType);
+        const types = value.List.map((item) => this.Deduce(item));
+        let mergedType = types[0];
+        for (let i = 1; i < types.length; ++i) {
+          mergedType = mergedType.Merge(types[i]);
         }
-        return new TypeArray(finalType);
+        const notEmptyTypesNum = mergedType.Types.filter((type) => !type.IsEmpty).length;
+        if (notEmptyTypesNum > 1) {
+          // 构建元组应该也是需要智能合并类型的吧
+          return new TypeTuple(types);
+        } else {
+          return new TypeArray(mergedType);
+        }
       }
       default: return new TypeAny();
     }

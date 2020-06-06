@@ -8,6 +8,10 @@ export class TypeNumber extends Type {
     return true;
   }
 
+  public get IsEmpty(): boolean {
+    return false;
+  }
+
   public get TypeDesc(): string {
     return this.kind.toString();
   }
