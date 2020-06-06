@@ -18,14 +18,14 @@ export class TypeUnion extends Type {
 
   /**
    * 相似度比较
-   * 联合类型除了和自身hash一致的类型之外，与其他类型的对比相似度为0
+   * 联合类型除了和自身hash一致的类型之外，与其他类型的对比相似度都为0
    * @param type 对比类型
    */
-  public DiffCompare(type: Type): number {
+  protected DiffCompare(type: Type): number {
     return 0;
   }
 
-  public DiffMerge(type: Type): Type {
+  protected DiffMerge(type: Type): Type {
     if (type.IsBase) {
       return new TypeUnion([this, type]);
     } else {

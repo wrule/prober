@@ -49,11 +49,11 @@ export class TypeTuple extends Type {
 
   /**
    * 相似度比较
-   * 如果比较对象同为元组类型的话，则触按位比较
+   * 如果比较对象同为元组类型的话，则按位递归求和比较
    * 如果类型为其他的话，相似度为0
    * @param type 对比类型
    */
-  public DiffCompare(type: Type): number {
+  protected DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Tuple) {
       return this.tupleCompare(type as TypeTuple);
     } else {
@@ -61,7 +61,7 @@ export class TypeTuple extends Type {
     }
   }
 
-  public DiffMerge(type: Type): Type {
+  protected DiffMerge(type: Type): Type {
     if (type.IsBase) {
       return new TypeUnion([this, type]);
     } else {

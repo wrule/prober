@@ -30,7 +30,7 @@ export class TypeArray extends Type {
    * 如果类型为其他的话，相似度为0
    * @param type 对比类型
    */
-  public DiffCompare(type: Type): number {
+  protected DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Array) {
       const arrayType = type as TypeArray;
       return this.ArrayItemType.Compare(arrayType.ArrayItemType);
@@ -39,7 +39,7 @@ export class TypeArray extends Type {
     }
   }
 
-  public DiffMerge(type: Type): Type {
+  protected DiffMerge(type: Type): Type {
     if (type.IsBase) {
       return new TypeUnion([this, type]);
     } else {
