@@ -26,16 +26,11 @@ export class TypeUnion extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    if (type.IsBase) {
-      return new TypeUnion(this, type);
+    const simil = this.DiffCompare(type);
+    if (simil >= 1) {
+      return this;
     } else {
-      switch (type.Kind) {
-        case TypeKind.Interface: return new TypeUnion(this, type);
-        case TypeKind.Union: return new TypeUnion(this, type);
-        case TypeKind.Array: return new TypeUnion(this, type);
-        case TypeKind.Tuple: return new TypeUnion(this, type);
-        default: return new TypeUnion(this, type);
-      }
+      return new TypeUnion(this, type);
     }
   }
 
