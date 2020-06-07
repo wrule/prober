@@ -3,7 +3,6 @@ import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeUndefined } from '../undefined';
-import { TypeAny } from '../any';
 
 export class TypeInterface extends Type {
   public get IsBase(): boolean {
@@ -21,7 +20,7 @@ export class TypeInterface extends Type {
   /**
    * 稳定排序后的接口成员列表
    */
-  public get MembersSorted(): [string, Type][] {
+  private get MembersSorted(): [string, Type][] {
     const result = Array.from(this.intfMbrs.entries());
     result.sort((a, b) => a[0].localeCompare(b[0]));
     return result;
@@ -47,7 +46,6 @@ export class TypeInterface extends Type {
     const otherKeys = Array.from(type.intfMbrs.keys());
     const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
     const nameWeight = 1 - 0.4;
-    const undefinedType = new TypeUndefined();
     const weightList = allKeys.map((key) => {
       const type1 = this.intfMbrs.get(key);
       const type2 = type.intfMbrs.get(key);
@@ -95,7 +93,7 @@ export class TypeInterface extends Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
-    } else if (simil >= 0.5) {
+    } else if (simil >= 0.3) {
       return this.intfMerge(type as TypeInterface);
     } else {
       return new TypeUnion(this, type);

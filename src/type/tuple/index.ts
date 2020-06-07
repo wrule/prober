@@ -48,7 +48,7 @@ export class TypeTuple extends Type {
         const otype = otherTypes[index];
         return ltype.Compare(otype);
       } else {
-        return ltype.Compare(new TypeUndefined());
+        return 0;
       }
     });
     let sumWeight = 0;
@@ -83,7 +83,7 @@ export class TypeTuple extends Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
-    } else if (simil >= 0.8) {
+    } else if (simil >= 0.4) {
       return this.tupleMerge(type as TypeTuple);
     } else {
       return new TypeUnion(this, type);
