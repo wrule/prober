@@ -44,19 +44,50 @@ export class TypeUnion extends Type {
    * @returns 去重后的类型列表
    */
   private static collectTypes(types: Type[]): Type[] {
+    let result = this.expandTypes(types);
+    result = this.distinctTypes(result);
+    result = this.tryMergeTypes(result);
+    return result;
+  }
+
+  /**
+   * 展开类型数组
+   * 此方法会递归展开类型数组中的union类型
+   * @param types 类型数组
+   * @returns 展开后的类型数组
+   */
+  private static expandTypes(types: Type[]): Type[] {
     const allTypes: Type[] = [];
     types.forEach((type) => {
       if (type.Kind === TypeKind.Union) {
-        allTypes.push(...type.Types);
+        allTypes.push(...this.expandTypes(type.Types));
       } else {
         allTypes.push(type);
       }
     });
+    return allTypes;
+  }
+
+  /**
+   * 类型数组根据hash去重
+   * @param types 类型数组
+   * @returns hash去重之后的类型数组
+   */
+  private static distinctTypes(types: Type[]): Type[] {
     const hashTypesMap = new Map<string, Type>();
-    allTypes.forEach((type) => {
+    types.forEach((type) => {
       hashTypesMap.set(type.Hash, type);
     });
     return Array.from(hashTypesMap.values());
+  }
+
+  /**
+   * 尝试在数组范围内内部优化合并类型数组
+   * @param types 类型数组
+   * @returns 优化合并之后的类型数组
+   */
+  private static tryMergeTypes(types: Type[]): Type[] {
+    return [];
   }
 
   public constructor(
