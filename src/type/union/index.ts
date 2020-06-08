@@ -1,6 +1,7 @@
 import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
+import { TypeInterface } from '../interface';
 
 /**
  * 联合类型，一种数据可能为多种类型的类型
@@ -22,6 +23,19 @@ export class TypeUnion extends Type {
   public get Hash(): string {
     return this.hash;
   }
+
+  public get DepIntfTypes(): TypeInterface[] {
+    const intfTypes: TypeInterface[] = [];
+    this.types.forEach((type) => {
+      if (type.Kind === TypeKind.Interface) {
+        intfTypes.push(type as TypeInterface);
+      } else {
+        intfTypes.push(...type.DepIntfTypes);
+      }
+    });
+    return intfTypes;
+  }
+
 
   /**
    * 相似度比较

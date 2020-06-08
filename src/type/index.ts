@@ -1,4 +1,5 @@
 import { TypeKind } from '../typeKind';
+import { TypeInterface } from './interface';
 
 /**
  * Type抽象类
@@ -23,6 +24,11 @@ export abstract class Type {
    * 用于描述类型结构的hash
    */
   public abstract Hash: string;
+
+  /**
+   * 类型依赖的接口类型
+   */
+  public abstract DepIntfTypes: TypeInterface[];
 
   protected abstract DiffCompare(type: Type): number;
 

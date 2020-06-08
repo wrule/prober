@@ -31,6 +31,18 @@ export class TypeInterface extends Type {
     return this.hash;
   }
 
+  public get DepIntfTypes(): TypeInterface[] {
+    const intfTypes: TypeInterface[] = [];
+    this.Members.forEach((mbr) => {
+      if (mbr.type.Kind === TypeKind.Interface) {
+        intfTypes.push(mbr.type as TypeInterface);
+      } else {
+        intfTypes.push(...mbr.type.DepIntfTypes);
+      }
+    });
+    return intfTypes;
+  }
+
   public get Members() {
     return Array.from(this.intfMbrs.entries()).map((item) => ({
       name: item[0],

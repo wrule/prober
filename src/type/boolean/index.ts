@@ -2,6 +2,7 @@ import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
+import { TypeInterface } from '../interface';
 
 export class TypeBoolean extends Type {
   public get IsBase(): boolean {
@@ -19,6 +20,10 @@ export class TypeBoolean extends Type {
   private static hash: string = Hash(TypeKind.Boolean);
   public get Hash(): string {
     return TypeBoolean.hash;
+  }
+
+  public get DepIntfTypes(): TypeInterface[] {
+    return [];
   }
 
   protected DiffCompare(type: Type): number {

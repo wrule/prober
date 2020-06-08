@@ -2,6 +2,7 @@ import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
+import { TypeInterface } from '../interface';
 
 export class TypeArray extends Type {
   public get IsBase(): boolean {
@@ -19,6 +20,14 @@ export class TypeArray extends Type {
   private hash: string;
   public get Hash(): string {
     return this.hash;
+  }
+
+  public get DepIntfTypes(): TypeInterface[] {
+    if (this.ArrayItemType.Kind === TypeKind.Interface) {
+      return [this.ArrayItemType as TypeInterface];
+    } else {
+      return this.ArrayItemType.DepIntfTypes;
+    }
   }
 
   /**

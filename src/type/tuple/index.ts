@@ -3,6 +3,7 @@ import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeUndefined } from '../undefined';
+import { TypeInterface } from '../interface';
 
 export class TypeTuple extends Type {
   public get IsBase(): boolean {
@@ -20,6 +21,18 @@ export class TypeTuple extends Type {
   private hash: string;
   public get Hash(): string {
     return this.hash;
+  }
+
+  public get DepIntfTypes(): TypeInterface[] {
+    const intfTypes: TypeInterface[] = [];
+    this.types.forEach((type) => {
+      if (type.Kind === TypeKind.Interface) {
+        intfTypes.push(type as TypeInterface);
+      } else {
+        intfTypes.push(...type.DepIntfTypes);
+      }
+    });
+    return intfTypes;
   }
 
   private typesOrder(type: TypeTuple): [Type[], Type[]] {
