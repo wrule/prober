@@ -4,12 +4,10 @@ const { Prober } = require('../dist');
 const { IntfCode } = require('../dist/intfCode')
 
 const prober = new Prober();
-const type = prober.Do(obj1, 'rsp', path.resolve(__dirname, 'out.json'));
+const type = prober.Do(obj1, 'rsp', path.join(__dirname, 'output', 'type.json'));
 const code = new IntfCode(type);
 console.log(type.TypeDesc);
 console.log(code.Code);
-
-
 
 
 // const { Field } = require('../dist/field');
