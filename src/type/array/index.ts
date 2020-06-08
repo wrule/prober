@@ -22,19 +22,19 @@ export class TypeArray extends Type {
     return this.hash;
   }
 
+  /**
+   * 数组元素的类型
+   */
+  public get ArrayItemType(): Type {
+    return this.types[0];
+  }
+
   public get DepIntfTypes(): TypeInterface[] {
     if (this.ArrayItemType.Kind === TypeKind.Interface) {
       return [this.ArrayItemType as TypeInterface];
     } else {
       return this.ArrayItemType.DepIntfTypes;
     }
-  }
-
-  /**
-   * 数组元素的类型
-   */
-  public get ArrayItemType(): Type {
-    return this.types[0];
   }
 
   /**
