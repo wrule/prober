@@ -48,7 +48,11 @@ export abstract class Type {
    */
   public Merge(type: Type): Type {
     if (this.Hash !== type.Hash) {
-      return this.DiffMerge(type);
+      if (type.Kind === TypeKind.Union) {
+        return type.DiffMerge(this);
+      } else {
+        return this.DiffMerge(type);
+      }
     } else {
       return this;
     }
