@@ -31,6 +31,13 @@ export class TypeInterface extends Type {
     return this.hash;
   }
 
+  public get Members() {
+    return Array.from(this.intfMbrs.entries()).map((item) => ({
+      name: item[0],
+      type: item[1],
+    }));
+  }
+
   /**
    * 对两个接口类型进行比较，获取相似度
    * 这是一个递归求和算法，不算复杂，具体可以看代码

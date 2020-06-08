@@ -64,11 +64,15 @@ export class TypeDeducer {
    * @returns 合并出的类型
    */
   private wholeMerge(types: Type[]): Type {
-    let mergedType = types[0];
-    for (let i = 1; i < types.length; ++i) {
-      mergedType = mergedType.Merge(types[i]);
+    if (types.length < 1) {
+      return new TypeAny();
+    } else {
+      let mergedType = types[0];
+      for (let i = 1; i < types.length; ++i) {
+        mergedType = mergedType.Merge(types[i]);
+      }
+      return mergedType;
     }
-    return mergedType;
   }
 
   /**

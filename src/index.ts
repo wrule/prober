@@ -3,6 +3,9 @@ import path from 'path';
 import { Field } from './field';
 import { IntfDef } from './intfDef';
 import { IntfCode } from './intfCode';
+import { TypeDeducer } from './typeDeducer';
+import { TypeJSON } from './typeJson';
+import { Type } from './type';
 
 /**
  * 探测器类
@@ -41,12 +44,15 @@ export class Prober {
     value: any,
     desc: string = '',
     outPath: string = '',
-  ): Field {
+  ): Type {
     const field = new Field(value, desc);
+    const deducer = new TypeDeducer();
+    const type = deducer.Deduce(field.Value, field.SrcName);
     if (outPath) {
-
+      const jsonStr = TypeJSON.Stringify(type);
+      fs.writeFileSync(outPath, jsonStr, 'utf8');
     }
-    return field;
+    return type;
   }
 
   public constructor() {}

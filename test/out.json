@@ -1,0 +1,1249 @@
+{
+  "kind": "_interface",
+  "types": [],
+  "intfName": "IRsp",
+  "intfMbrs": [
+    [
+      "extParams",
+      {
+        "kind": "_interface",
+        "types": [],
+        "intfName": "IExtParams",
+        "intfMbrs": []
+      }
+    ],
+    [
+      "success",
+      {
+        "kind": "boolean",
+        "types": [],
+        "intfName": "",
+        "intfMbrs": []
+      }
+    ],
+    [
+      "object",
+      {
+        "kind": "_interface",
+        "types": [],
+        "intfName": "IObject",
+        "intfMbrs": [
+          [
+            "allUsers",
+            {
+              "kind": "number",
+              "types": [],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "apps",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "_interface",
+                  "types": [],
+                  "intfName": "IApps_ArrayItem",
+                  "intfMbrs": [
+                    [
+                      "id",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "name",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "creator",
+            {
+              "kind": "_interface",
+              "types": [],
+              "intfName": "ICreator",
+              "intfMbrs": [
+                [
+                  "uid",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "imgUrl",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "nickName",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            "machineList",
+            {
+              "kind": "_interface",
+              "types": [],
+              "intfName": "IMachineList",
+              "intfMbrs": [
+                [
+                  "xspider_1",
+                  {
+                    "kind": "_array",
+                    "types": [
+                      {
+                        "kind": "_interface",
+                        "types": [],
+                        "intfName": "IXspider1_ArrayItem",
+                        "intfMbrs": [
+                          [
+                            "cpuCores",
+                            {
+                              "kind": "number",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "diskTotalSize",
+                            {
+                              "kind": "number",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "ip",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "hostName",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "machineId",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "memoryTotalSize",
+                            {
+                              "kind": "number",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "osName",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "osVersion",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "stateless",
+                            {
+                              "kind": "boolean",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ]
+                        ]
+                      }
+                    ],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "压力机",
+                  {
+                    "kind": "_array",
+                    "types": [
+                      {
+                        "kind": "_interface",
+                        "types": [],
+                        "intfName": "I压力机_ArrayItem",
+                        "intfMbrs": [
+                          [
+                            "cpuCores",
+                            {
+                              "kind": "number",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "diskTotalSize",
+                            {
+                              "kind": "number",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "hostName",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "ip",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "machineId",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "memoryTotalSize",
+                            {
+                              "kind": "number",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "osName",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "osVersion",
+                            {
+                              "kind": "string",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ],
+                          [
+                            "stateless",
+                            {
+                              "kind": "boolean",
+                              "types": [],
+                              "intfName": "",
+                              "intfMbrs": []
+                            }
+                          ]
+                        ]
+                      }
+                    ],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            "maxDuration",
+            {
+              "kind": "number",
+              "types": [],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "name",
+            {
+              "kind": "string",
+              "types": [],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "sceneExecId",
+            {
+              "kind": "string",
+              "types": [],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "sceneId",
+            {
+              "kind": "string",
+              "types": [],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "sceneMeta",
+            {
+              "kind": "_interface",
+              "types": [],
+              "intfName": "ISceneMeta",
+              "intfMbrs": [
+                [
+                  "createTime",
+                  {
+                    "kind": "number",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "creatorId",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "curveDetail",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "disablePause",
+                  {
+                    "kind": "boolean",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "focusedTransactions",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "id",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "machineCount",
+                  {
+                    "kind": "number",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "merchantId",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "modifierId",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "modifyTime",
+                  {
+                    "kind": "number",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "name",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "runTag",
+                  {
+                    "kind": "number",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "sceneExecId",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "status",
+                  {
+                    "kind": "boolean",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "strategyType",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "useScriptStrategy",
+                  {
+                    "kind": "boolean",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            "sceneScriptConfs",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "_interface",
+                  "types": [],
+                  "intfName": "ISceneScriptConfs_ArrayItem",
+                  "intfMbrs": [
+                    [
+                      "createTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "curveDetail",
+                      {
+                        "kind": "_union",
+                        "types": [
+                          {
+                            "kind": "string",
+                            "types": [],
+                            "intfName": "",
+                            "intfMbrs": []
+                          },
+                          {
+                            "kind": "undefined",
+                            "types": [],
+                            "intfName": "",
+                            "intfMbrs": []
+                          }
+                        ],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "id",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "jmeterThreadName",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "merchantId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "modifyTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "option",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "percent",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "realName",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "runTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "runnable",
+                      {
+                        "kind": "boolean",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "sceneId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "scriptId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "scriptName",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "scriptType",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "threadGroupConfigs",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "threadGroupType",
+                      {
+                        "kind": "_union",
+                        "types": [
+                          {
+                            "kind": "string",
+                            "types": [],
+                            "intfName": "",
+                            "intfMbrs": []
+                          },
+                          {
+                            "kind": "undefined",
+                            "types": [],
+                            "intfName": "",
+                            "intfMbrs": []
+                          }
+                        ],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "users",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "scriptExecuteConfig",
+                      {
+                        "kind": "_union",
+                        "types": [
+                          {
+                            "kind": "undefined",
+                            "types": [],
+                            "intfName": "",
+                            "intfMbrs": []
+                          },
+                          {
+                            "kind": "_interface",
+                            "types": [],
+                            "intfName": "IScriptExecuteConfig",
+                            "intfMbrs": [
+                              [
+                                "apps",
+                                {
+                                  "kind": "_array",
+                                  "types": [
+                                    {
+                                      "kind": "_interface",
+                                      "types": [],
+                                      "intfName": "IApps_ArrayItem",
+                                      "intfMbrs": [
+                                        [
+                                          "clusters",
+                                          {
+                                            "kind": "_array",
+                                            "types": [
+                                              {
+                                                "kind": "_interface",
+                                                "types": [],
+                                                "intfName": "IClusters_ArrayItem",
+                                                "intfMbrs": [
+                                                  [
+                                                    "id",
+                                                    {
+                                                      "kind": "string",
+                                                      "types": [],
+                                                      "intfName": "",
+                                                      "intfMbrs": []
+                                                    }
+                                                  ],
+                                                  [
+                                                    "name",
+                                                    {
+                                                      "kind": "string",
+                                                      "types": [],
+                                                      "intfName": "",
+                                                      "intfMbrs": []
+                                                    }
+                                                  ]
+                                                ]
+                                              }
+                                            ],
+                                            "intfName": "",
+                                            "intfMbrs": []
+                                          }
+                                        ],
+                                        [
+                                          "id",
+                                          {
+                                            "kind": "string",
+                                            "types": [],
+                                            "intfName": "",
+                                            "intfMbrs": []
+                                          }
+                                        ],
+                                        [
+                                          "name",
+                                          {
+                                            "kind": "string",
+                                            "types": [],
+                                            "intfName": "",
+                                            "intfMbrs": []
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  ],
+                                  "intfName": "",
+                                  "intfMbrs": []
+                                }
+                              ],
+                              [
+                                "params",
+                                {
+                                  "kind": "_union",
+                                  "types": [
+                                    {
+                                      "kind": "_array",
+                                      "types": [
+                                        {
+                                          "kind": "_interface",
+                                          "types": [],
+                                          "intfName": "IParams_ArrayItem",
+                                          "intfMbrs": [
+                                            [
+                                              "currentValue",
+                                              {
+                                                "kind": "string",
+                                                "types": [],
+                                                "intfName": "",
+                                                "intfMbrs": []
+                                              }
+                                            ],
+                                            [
+                                              "defaultValue",
+                                              {
+                                                "kind": "string",
+                                                "types": [],
+                                                "intfName": "",
+                                                "intfMbrs": []
+                                              }
+                                            ],
+                                            [
+                                              "description",
+                                              {
+                                                "kind": "string",
+                                                "types": [],
+                                                "intfName": "",
+                                                "intfMbrs": []
+                                              }
+                                            ],
+                                            [
+                                              "name",
+                                              {
+                                                "kind": "string",
+                                                "types": [],
+                                                "intfName": "",
+                                                "intfMbrs": []
+                                              }
+                                            ]
+                                          ]
+                                        }
+                                      ],
+                                      "intfName": "",
+                                      "intfMbrs": []
+                                    },
+                                    {
+                                      "kind": "_array",
+                                      "types": [
+                                        {
+                                          "kind": "any",
+                                          "types": [],
+                                          "intfName": "",
+                                          "intfMbrs": []
+                                        }
+                                      ],
+                                      "intfName": "",
+                                      "intfMbrs": []
+                                    }
+                                  ],
+                                  "intfName": "",
+                                  "intfMbrs": []
+                                }
+                              ],
+                              [
+                                "sceneScriptId",
+                                {
+                                  "kind": "_union",
+                                  "types": [
+                                    {
+                                      "kind": "undefined",
+                                      "types": [],
+                                      "intfName": "",
+                                      "intfMbrs": []
+                                    },
+                                    {
+                                      "kind": "string",
+                                      "types": [],
+                                      "intfName": "",
+                                      "intfMbrs": []
+                                    }
+                                  ],
+                                  "intfName": "",
+                                  "intfMbrs": []
+                                }
+                              ]
+                            ]
+                          }
+                        ],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "sceneStrategyList",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "_interface",
+                  "types": [],
+                  "intfName": "ISceneStrategyList_ArrayItem",
+                  "intfMbrs": [
+                    [
+                      "createTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "id",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "index",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "merchantId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "modifyTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "period",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "sceneId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "userNum",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "scriptConfs",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "_interface",
+                  "types": [],
+                  "intfName": "IScriptConfs_ArrayItem",
+                  "intfMbrs": [
+                    [
+                      "$ref",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "scriptDataFiles",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "any",
+                  "types": [],
+                  "intfName": "",
+                  "intfMbrs": []
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "scriptJars",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "any",
+                  "types": [],
+                  "intfName": "",
+                  "intfMbrs": []
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "scripts",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "_interface",
+                  "types": [],
+                  "intfName": "IScripts_ArrayItem",
+                  "intfMbrs": [
+                    [
+                      "createTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "fileKey",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "fileSize",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "groups",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "id",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "isSerialize",
+                      {
+                        "kind": "boolean",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "merchantId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "modifierId",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "modifyTime",
+                      {
+                        "kind": "number",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "name",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "type",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "strategyType",
+            {
+              "kind": "string",
+              "types": [],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "unRunnableScripts",
+            {
+              "kind": "_array",
+              "types": [
+                {
+                  "kind": "_interface",
+                  "types": [],
+                  "intfName": "IUnRunnableScripts_ArrayItem",
+                  "intfMbrs": [
+                    [
+                      "id",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ],
+                    [
+                      "name",
+                      {
+                        "kind": "string",
+                        "types": [],
+                        "intfName": "",
+                        "intfMbrs": []
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "intfName": "",
+              "intfMbrs": []
+            }
+          ],
+          [
+            "userCountKeys",
+            {
+              "kind": "_interface",
+              "types": [],
+              "intfName": "IUserCountKeys",
+              "intfMbrs": [
+                [
+                  "禁用启用告警",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "告警规则页面",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ],
+                [
+                  "编辑进入告警",
+                  {
+                    "kind": "string",
+                    "types": [],
+                    "intfName": "",
+                    "intfMbrs": []
+                  }
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    ]
+  ]
+}
