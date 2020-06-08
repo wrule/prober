@@ -26,7 +26,7 @@ export abstract class Type {
   public abstract Hash: string;
 
   /**
-   * 类型依赖的接口类型
+   * 类型依赖的接口类型列表
    */
   public abstract DepIntfTypes: TypeInterface[];
 
