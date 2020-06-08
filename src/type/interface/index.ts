@@ -1,3 +1,4 @@
+import Lodash from 'lodash';
 import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
@@ -14,7 +15,7 @@ export class TypeInterface extends Type {
   }
 
   public get TypeDesc(): string {
-    return `I${this.intfName}_${this.hash.slice(0, 8).toUpperCase()}`;
+    return `I${Lodash.upperFirst(this.intfName)}_${this.hash.slice(0, 8).toUpperCase()}`;
   }
 
   /**

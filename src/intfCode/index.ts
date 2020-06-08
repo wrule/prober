@@ -9,7 +9,7 @@ export class IntfCode {
    */
   public get Code(): string {
     return `
-${this.intfType.DepIntfTypes.map((type) => `import { ${type.TypeDesc} } from './${type.TypeDesc}';`).join('\r\n')}
+${this.intfType.DepIntfTypes.map((type) => `import { ${type.TypeDesc} } from './${type.IntfName}';`).join('\r\n')}
 
 export interface ${this.intfType.TypeDesc} {
 ${this.intfType.Members.map((mbr) => `  '${mbr[0]}': ${mbr[1].TypeDesc};`).join('\r\n')}  

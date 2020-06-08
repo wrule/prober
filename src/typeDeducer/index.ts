@@ -101,9 +101,9 @@ export class TypeDeducer {
     desc: string = '',
     suffixs: string[] = [],
   ): string {
-    const name = Lodash.upperFirst(Lodash.camelCase(desc));
+    const name = Lodash.camelCase(desc);
     let suffixsText = suffixs.join('_');
     suffixsText = suffixsText ? `_${suffixsText}` : '';
-    return `I${name}${suffixsText}`;
+    return `${name}${suffixsText}`;
   }
 }
