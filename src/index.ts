@@ -10,6 +10,14 @@ import { Type } from './type';
  * 探测器类
  */
 export class Prober {
+  private writeFile(outPath: string, text: string): void {
+    if (!fs.existsSync(outPath)) {
+      fs.mkdirSync(outPath, { recursive: true });
+    }
+    fs.writeFileSync(outPath, text, 'utf8');
+  }
+
+
   /**
    * 探测JavaScript的值的类型
    * @param value JavaScript值
