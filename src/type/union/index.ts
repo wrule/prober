@@ -2,6 +2,9 @@ import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 
+/**
+ * 联合类型，一种数据可能为多种类型的类型
+ */
 export class TypeUnion extends Type {
   public get IsBase(): boolean {
     return false;
@@ -29,13 +32,58 @@ export class TypeUnion extends Type {
     return 0;
   }
 
+  /**
+   * 将某一个类型合并到此联合类型
+   * @param type 类型
+   * @returns 合并后的联合类型
+   */
+  private unionMerge(type: Type): TypeUnion {
+    // 获取当前联合类型的构成类型列表
+    const types = [...this.types];
+    if (type.Kind === TypeKind.Union) {
+      let dstType = new TypeUnion(...types);
+      type.Types.forEach((item) => {
+        dstType = dstType.unionMerge(item);
+      });
+      return dstType;
+    } else {
+      const simils = types.map((mtype) => mtype.Compare(type));
+      const maxSimil = Math.max(...simils);
+      if (maxSimil >= 0.3) {
+        const maxIndex = simils.findIndex((simil) => simil === maxSimil);
+        const srcType = types[maxIndex];
+        types.splice(maxIndex, 1, srcType.Merge(type));
+      } else {
+        types.push(type);
+      }
+      return new TypeUnion(...types);
+    }
+  }
+
   protected DiffMerge(type: Type): Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
     } else {
-      return new TypeUnion(...this.collectTypes([this, type]));
+      return this.unionMerge(type);
     }
+  }
+
+  /**
+   * 构造函数
+   * @param types 类型列表，此类型列表必须为处理过的最优化类型列表
+   */
+  public constructor(
+    ...types: Type[]
+  ) {
+    super(TypeKind.Union, types);
+    // 排序后计算hash，hash排序对于union类型来说是必须的
+    // union类型的hash为每一个可能的类型的hash通过|连接而生成的字符串的hash
+    const hashsSorted = this.types
+      .map((type) => type.Hash)
+      .sort((a, b) => a.localeCompare(b))
+      .join('|');
+    this.hash = Hash(hashsSorted);
   }
 
   /**
@@ -88,18 +136,5 @@ export class TypeUnion extends Type {
    */
   private tryMergeTypes(types: Type[]): Type[] {
     return [];
-  }
-
-  public constructor(
-    ...types: Type[]
-  ) {
-    super(TypeKind.Union, types);
-    // 排序后计算hash，hash排序对于union类型来说是必须的
-    // union类型的hash为每一个可能的类型的hash通过|连接而生成的字符串的hash
-    const hashsSorted = this.types
-      .map((type) => type.Hash)
-      .sort((a, b) => a.localeCompare(b))
-      .join('|');
-    this.hash = Hash(hashsSorted);
   }
 }
