@@ -14,7 +14,7 @@ export class TypeInterface extends Type {
   }
 
   public get TypeDesc(): string {
-    return this.intfName;
+    return `${this.intfName}_${this.hash.slice(0, 8).toUpperCase()}`;
   }
 
   /**
