@@ -14,14 +14,14 @@ export class TypeInterface extends Type {
   }
 
   public get TypeDesc(): string {
-    return `${this.intfName}_${this.hash.slice(0, 8).toUpperCase()}`;
+    return `I${this.intfName}_${this.hash.slice(0, 8).toUpperCase()}`;
   }
 
   /**
    * 稳定排序后的接口成员列表
    */
   private get MembersSorted(): [string, Type][] {
-    const result = Array.from(this.intfMbrs.entries());
+    const result = [...this.Members];
     result.sort((a, b) => a[0].localeCompare(b[0]));
     return result;
   }
@@ -34,20 +34,17 @@ export class TypeInterface extends Type {
   public get DepIntfTypes(): TypeInterface[] {
     const intfTypes: TypeInterface[] = [];
     this.Members.forEach((mbr) => {
-      if (mbr.type.Kind === TypeKind.Interface) {
-        intfTypes.push(mbr.type as TypeInterface);
+      if (mbr[1].Kind === TypeKind.Interface) {
+        intfTypes.push(mbr[1] as TypeInterface);
       } else {
-        intfTypes.push(...mbr.type.DepIntfTypes);
+        intfTypes.push(...mbr[1].DepIntfTypes);
       }
     });
     return intfTypes;
   }
 
-  public get Members() {
-    return Array.from(this.intfMbrs.entries()).map((item) => ({
-      name: item[0],
-      type: item[1],
-    }));
+  public get Members(): [string, Type][] {
+    return Array.from(this.intfMbrs.entries());
   }
 
   /**
@@ -62,7 +59,7 @@ export class TypeInterface extends Type {
     typeWeight: number = 0.4,
   ): number {
     const otherKeys = Array.from(type.intfMbrs.keys());
-    const nameWeight = 1 - 0.4;
+    const nameWeight = 1 - typeWeight;
     const weightList = otherKeys.map((key) => {
       const type1 = this.intfMbrs.get(key);
       const type2 = type.intfMbrs.get(key);
