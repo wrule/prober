@@ -1,5 +1,4 @@
 import { Value } from '../value';
-import { Type } from '../type';
 
 /**
  * 类型化的字段类型
