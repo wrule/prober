@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { Field } from './field';
-import { IntfDef } from './intfDef';
 import { IntfCode } from './intfCode';
 import { TypeDeducer } from './typeDeducer';
 import { TypeJSON } from './typeJson';
