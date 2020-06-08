@@ -34,7 +34,7 @@ export class TypeUnion extends Type {
     if (simil >= 1) {
       return this;
     } else {
-      return new TypeUnion(this, type);
+      return new TypeUnion(...this.collectTypes([this, type]));
     }
   }
 
@@ -43,7 +43,7 @@ export class TypeUnion extends Type {
    * @param types 类型列表
    * @returns 去重后的类型列表
    */
-  private static collectTypes(types: Type[]): Type[] {
+  private collectTypes(types: Type[]): Type[] {
     let result = this.expandTypes(types);
     result = this.distinctTypes(result);
     result = this.tryMergeTypes(result);
@@ -56,7 +56,7 @@ export class TypeUnion extends Type {
    * @param types 类型数组
    * @returns 展开后的类型数组
    */
-  private static expandTypes(types: Type[]): Type[] {
+  private expandTypes(types: Type[]): Type[] {
     const allTypes: Type[] = [];
     types.forEach((type) => {
       if (type.Kind === TypeKind.Union) {
@@ -73,7 +73,7 @@ export class TypeUnion extends Type {
    * @param types 类型数组
    * @returns hash去重之后的类型数组
    */
-  private static distinctTypes(types: Type[]): Type[] {
+  private distinctTypes(types: Type[]): Type[] {
     const hashTypesMap = new Map<string, Type>();
     types.forEach((type) => {
       hashTypesMap.set(type.Hash, type);
@@ -86,14 +86,14 @@ export class TypeUnion extends Type {
    * @param types 类型数组
    * @returns 优化合并之后的类型数组
    */
-  private static tryMergeTypes(types: Type[]): Type[] {
+  private tryMergeTypes(types: Type[]): Type[] {
     return [];
   }
 
   public constructor(
     ...types: Type[]
   ) {
-    super(TypeKind.Union, TypeUnion.collectTypes(types));
+    super(TypeKind.Union, types);
     // 排序后计算hash，hash排序对于union类型来说是必须的
     // union类型的hash为每一个可能的类型的hash通过|连接而生成的字符串的hash
     const hashsSorted = this.types
