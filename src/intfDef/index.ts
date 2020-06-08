@@ -46,12 +46,12 @@ export class IntfDef {
     const result: IntfDef[] = [];
     const nameSet = new Set<string>();
     this.value.Fields.forEach((field) => {
-      field.Type.IntfDefs.forEach((intf) => {
-        if (!nameSet.has(intf.Name)) {
-          result.push(intf);
-          nameSet.add(intf.Name);
-        }
-      });
+      // field.Type.IntfDefs.forEach((intf) => {
+      //   if (!nameSet.has(intf.Name)) {
+      //     result.push(intf);
+      //     nameSet.add(intf.Name);
+      //   }
+      // });
     });
     this.depSubIntfDefs = result;
   }

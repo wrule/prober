@@ -44,9 +44,7 @@ export class Prober {
   ): Field {
     const field = new Field(value, desc);
     if (outPath) {
-      field.Type.IntfDefs.forEach((intfDef) => {
-        this.writeIntfDefToFile(intfDef, outPath);
-      });
+
     }
     return field;
   }

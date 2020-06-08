@@ -12,7 +12,7 @@ export class IntfCode {
 ${this.intfDef.DepSubIntfDefs.map((intf) => `import { ${intf.Name} } from './${intf.DirName}';`).join('\r\n')}
 
 export interface ${this.intfDef.Name} {
-${this.intfDef.Fields.map((field) => `  '${field.SrcName}': ${field.Type.TypeDesc};`).join('\r\n')}  
+${this.intfDef.Fields.map((field) => `  '${field.SrcName}': ${''};`).join('\r\n')}  
 }
 `.trim() + '\r\n';
   }
