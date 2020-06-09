@@ -35,7 +35,7 @@ export class Prober {
     intfType: TypeInterface,
   ): void {
     intfType.DepIntfTypes.forEach((type) => {
-      this.writeIntf(path.join(outPath, type.IntfName), type);
+      this.writeIntf(path.join(outPath, type.IntfFullName), type);
     });
     const intfCode = new IntfCode(intfType);
     this.writeFile(outPath, 'index.ts', intfCode.Code);
@@ -93,7 +93,7 @@ export class Prober {
       this.writeIntf(outPath, type as TypeInterface);
     } else {
       type.DepIntfTypes.forEach((dtype) => {
-        this.writeIntf(path.join(outPath, dtype.IntfName), dtype);
+        this.writeIntf(path.join(outPath, dtype.IntfFullName), dtype);
       });
     }
   }
