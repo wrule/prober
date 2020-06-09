@@ -14,8 +14,16 @@ export class TypeInterface extends Type {
     return false;
   }
 
+  public get SrcIntfName(): string {
+    return this.intfName;
+  }
+
+  public get IntfName(): string {
+    return `${this.SrcIntfName}_${this.hash.slice(0, 8).toUpperCase()}`;
+  }
+
   public get TypeDesc(): string {
-    return `I${Lodash.upperFirst(this.intfName)}_${this.hash.slice(0, 8).toUpperCase()}`;
+    return `I${Lodash.upperFirst(this.IntfName)}`;
   }
 
   /**
