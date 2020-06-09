@@ -96,7 +96,7 @@ export class TypeTuple extends Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
-    } else if (simil >= 0.1) {
+    } else if (simil >= 0) {
       return this.tupleMerge(type as TypeTuple);
     } else {
       return new TypeUnion(this, type);

@@ -63,7 +63,7 @@ export class TypeUnion extends Type {
     } else {
       const simils = types.map((mtype) => mtype.Compare(type));
       const maxSimil = Math.max(...simils);
-      if (maxSimil >= 0.1) {
+      if (maxSimil >= 0) {
         const maxIndex = simils.findIndex((simil) => simil === maxSimil);
         const srcType = types[maxIndex];
         types.splice(maxIndex, 1, srcType.Merge(type));
