@@ -1,11 +1,14 @@
 const path = require('path');
-const obj1 = require('./1.json');
+const obj = require('./a.json');
 const { Prober } = require('../dist');
-const { IntfCode } = require('../dist/intfCode');
 
+const dstPath = path.join(__dirname, '..', 'src', 'output');
 const prober = new Prober();
-const type = prober.Do(obj1, 'rsp', path.join(__dirname, '..', 'src', 'output'));
-console.log(type.TypeDesc);
+const oldType = prober.Load(dstPath);
+const newType = prober.Do(obj, 'rsp');
+const mergedType = oldType.Merge(newType);
+prober.Dump(mergedType, dstPath);
+console.log(oldType.TypeDesc, newType.TypeDesc, mergedType.TypeDesc);
 
 
 // const { Field } = require('../dist/field');

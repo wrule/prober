@@ -7,6 +7,7 @@ import { TypeJSON } from './typeJson';
 import { Type } from './type';
 import { TypeInterface } from './type/interface';
 import { TypeKind } from './typeKind';
+import { TypeUndefined } from './type/undefined';
 
 /**
  * 探测器类
@@ -56,17 +57,45 @@ export class Prober {
     const deducer = new TypeDeducer();
     const type = deducer.Deduce(field.Value, field.SrcName);
     if (outPath) {
-      const jsonStr = TypeJSON.Stringify(type);
-      this.writeFile(outPath, 'type.json', jsonStr);
-      if (type.Kind === TypeKind.Interface) {
-        this.writeIntf(outPath, type as TypeInterface);
-      } else {
-        type.DepIntfTypes.forEach((dtype) => {
-          this.writeIntf(path.join(outPath, dtype.IntfName), dtype);
-        });
-      }
+      this.Dump(type, outPath);
     }
     return type;
+  }
+
+  /**
+   * 从本地加载类型
+   * @param inPath 输入路径
+   * @param fileName 目标文件名
+   * @returns 加载得到的类型
+   */
+  public Load(
+    inPath: string,
+    fileName: string = 'type.json',
+  ): Type {
+    const filePath = path.join(inPath, fileName);
+    const jsonText = fs.readFileSync(filePath, 'utf8');
+    return TypeJSON.Parse(jsonText);
+  }
+
+  /**
+   * Dump类型到本地并且生成代码
+   * @param outPath 输出路径
+   * @param fileName 目标文件名
+   */
+  public Dump(
+    type: Type,
+    outPath: string,
+    fileName: string = 'type.json',
+  ): void {
+    const jsonStr = TypeJSON.Stringify(type);
+    this.writeFile(outPath, fileName, jsonStr);
+    if (type.Kind === TypeKind.Interface) {
+      this.writeIntf(outPath, type as TypeInterface);
+    } else {
+      type.DepIntfTypes.forEach((dtype) => {
+        this.writeIntf(path.join(outPath, dtype.IntfName), dtype);
+      });
+    }
   }
 
   public constructor() {}
