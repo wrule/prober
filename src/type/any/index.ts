@@ -31,7 +31,7 @@ export class TypeAny extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    return new TypeUnion(this, type);
+    return type;
   }
 
   public constructor() {

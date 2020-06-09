@@ -4,11 +4,6 @@ const { Prober } = require('../dist');
 
 const dstPath = path.join(__dirname, '..', 'src', 'output');
 const prober = new Prober();
-let newType = prober.Do(obj, 'rsp');
-if (prober.Exists(dstPath)) {
-  const oldType = prober.Load(dstPath);
-  newType = oldType.Merge(newType);
-}
-prober.Dump(newType, dstPath);
+const newType = prober.Update(obj, 'rsp', dstPath);
 console.log(newType.TypeDesc);
 

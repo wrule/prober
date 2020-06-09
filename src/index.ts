@@ -112,5 +112,25 @@ export class Prober {
     return fs.existsSync(filePath);
   }
 
+  /**
+   * 更新类型
+   * @param value JavaScript值
+   * @param desc 类型描述（一般为字段名）
+   * @param outPath 代码目标路径
+   */
+  public Update(
+    value: any,
+    desc: string = '',
+    dstPath: string = '',
+  ): Type {
+    let newType = this.Do(value, desc);
+    if (this.Exists(dstPath)) {
+      const oldType = this.Load(dstPath);
+      newType = oldType.Merge(newType);
+    }
+    this.Dump(newType, dstPath);
+    return newType;
+  }
+
   public constructor() {}
 }
