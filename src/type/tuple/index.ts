@@ -77,7 +77,7 @@ export class TypeTuple extends Type {
    */
   protected DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Tuple) {
-      return this.tupleCompare(type as TypeTuple);
+      return 0.1 + this.tupleCompare(type as TypeTuple) * 0.9;
     } else {
       return 0;
     }

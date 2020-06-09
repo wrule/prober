@@ -1,7 +1,3 @@
 {
-  "a": [{
-    "name": "jimao",
-    "age": 18,
-    "address": "fuck"
-  }]
+  "a": ["1"]
 }
