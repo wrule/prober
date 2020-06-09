@@ -75,12 +75,7 @@ export class TypeUnion extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    const simil = this.DiffCompare(type);
-    if (simil >= 1) {
-      return this;
-    } else {
-      return this.unionMerge(type);
-    }
+    return this.unionMerge(type);
   }
 
   /**
