@@ -54,9 +54,7 @@ export class TypeArray extends Type {
 
   protected DiffMerge(type: Type): Type {
     const simil = this.DiffCompare(type);
-    if (simil >= 1) {
-      return this;
-    } else if (simil >= 0) {
+    if (type.Kind === TypeKind.Array) {
       const arrayType = type as TypeArray;
       return new TypeArray(this.ArrayItemType.Merge(arrayType.ArrayItemType));
     } else {

@@ -111,10 +111,7 @@ export class TypeInterface extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    const simil = this.DiffCompare(type);
-    if (simil >= 1) {
-      return this;
-    } else if (simil >= 0) {
+    if (type.Kind === TypeKind.Interface) {
       return this.intfMerge(type as TypeInterface);
     } else {
       return new TypeUnion(this, type);

@@ -93,10 +93,7 @@ export class TypeTuple extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    const simil = this.DiffCompare(type);
-    if (simil >= 1) {
-      return this;
-    } else if (simil >= 0) {
+    if (type.Kind === TypeKind.Tuple) {
       return this.tupleMerge(type as TypeTuple);
     } else {
       return new TypeUnion(this, type);
