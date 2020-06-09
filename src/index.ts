@@ -98,5 +98,19 @@ export class Prober {
     }
   }
 
+  /**
+   * 判断目录里是否存在类型
+   * @param outPath 目录
+   * @param fileName 目标文件名
+   * @returns 是否存在类型
+   */
+  public Exists(
+    outPath: string,
+    fileName: string = 'type.json',    
+  ): boolean {
+    const filePath = path.join(outPath, fileName);
+    return fs.existsSync(filePath);
+  }
+
   public constructor() {}
 }
