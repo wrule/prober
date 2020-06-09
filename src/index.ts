@@ -7,7 +7,6 @@ import { TypeJSON } from './typeJson';
 import { Type } from './type';
 import { TypeInterface } from './type/interface';
 import { TypeKind } from './typeKind';
-import { TypeUndefined } from './type/undefined';
 
 /**
  * 探测器类
@@ -30,6 +29,11 @@ export class Prober {
     fs.writeFileSync(path.join(outPath, fileName), text, 'utf8');
   }
 
+  /**
+   * 向指定目录写入接口类型定义代码
+   * @param outPath 指定目录
+   * @param intfType 接口类型
+   */
   private writeIntf(
     outPath: string,
     intfType: TypeInterface,
@@ -40,7 +44,6 @@ export class Prober {
     const intfCode = new IntfCode(intfType);
     this.writeFile(outPath, 'index.ts', intfCode.Code);
   }
-
 
   /**
    * 探测JavaScript的值的类型
