@@ -11,3 +11,4 @@ if (prober.Exists(dstPath)) {
 }
 prober.Dump(newType, dstPath);
 console.log(newType.TypeDesc);
+
