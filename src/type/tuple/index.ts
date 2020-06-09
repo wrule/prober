@@ -55,17 +55,18 @@ export class TypeTuple extends Type {
    * @returns 相似度，范围为[0,1]
    */
   private tupleCompare(type: TypeTuple): number {
-    const weightList = type.Types.map((otype, index) => {
-      if (index < this.types.length) {
-        const mtype = this.types[index];
-        return mtype.Compare(otype);
+    const [longerTypes, otherTypes] = this.typesOrder(type);
+    const weightList = longerTypes.map((ltype, index) => {
+      if (index < otherTypes.length) {
+        const otype = otherTypes[index];
+        return ltype.Compare(otype);
       } else {
         return 0;
       }
     });
     let sumWeight = 0;
     weightList.forEach((weight) => sumWeight += weight);
-    return sumWeight /  weightList.length;
+    return sumWeight / weightList.length;
   }
 
   /**
@@ -95,7 +96,7 @@ export class TypeTuple extends Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
-    } else if (simil >= 0.3) {
+    } else if (simil >= 0.1) {
       return this.tupleMerge(type as TypeTuple);
     } else {
       return new TypeUnion(this, type);

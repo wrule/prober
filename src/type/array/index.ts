@@ -56,7 +56,7 @@ export class TypeArray extends Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
-    } else if (simil >= 0.3) {
+    } else if (simil >= 0.1) {
       const arrayType = type as TypeArray;
       return new TypeArray(this.ArrayItemType.Merge(arrayType.ArrayItemType));
     } else {

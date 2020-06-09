@@ -59,9 +59,11 @@ export class TypeInterface extends Type {
     type: TypeInterface,
     typeWeight: number = 0.4,
   ): number {
+    const thisKeys = Array.from(this.intfMbrs.keys());
     const otherKeys = Array.from(type.intfMbrs.keys());
+    const allKeys = Array.from(new Set(thisKeys.concat(otherKeys)));
     const nameWeight = 1 - typeWeight;
-    const weightList = otherKeys.map((key) => {
+    const weightList = allKeys.map((key) => {
       const type1 = this.intfMbrs.get(key);
       const type2 = type.intfMbrs.get(key);
       if (type1 && type2) {
@@ -72,7 +74,7 @@ export class TypeInterface extends Type {
     });
     let sumWeight = 0;
     weightList.forEach((weight) => sumWeight += weight);
-    return sumWeight / otherKeys.length;
+    return sumWeight / weightList.length;
   }
 
   /**
@@ -108,7 +110,7 @@ export class TypeInterface extends Type {
     const simil = this.DiffCompare(type);
     if (simil >= 1) {
       return this;
-    } else if (simil >= 0.3) {
+    } else if (simil >= 0.1) {
       return this.intfMerge(type as TypeInterface);
     } else {
       return new TypeUnion(this, type);
