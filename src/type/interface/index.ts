@@ -89,7 +89,7 @@ export class TypeInterface extends Type {
    */
   protected DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Interface) {
-      return this.intfCompare(type as TypeInterface);
+      return 0.1 + this.intfCompare(type as TypeInterface) * 0.9;
     } else {
       return 0;
     }

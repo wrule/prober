@@ -46,7 +46,7 @@ export class TypeArray extends Type {
   protected DiffCompare(type: Type): number {
     if (type.Kind === TypeKind.Array) {
       const arrayType = type as TypeArray;
-      return this.ArrayItemType.Compare(arrayType.ArrayItemType);
+      return 0.1 + this.ArrayItemType.Compare(arrayType.ArrayItemType) * 0.9;
     } else {
       return 0;
     }

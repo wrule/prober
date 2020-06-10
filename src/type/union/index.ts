@@ -63,7 +63,7 @@ export class TypeUnion extends Type {
     } else {
       const simils = types.map((mtype) => mtype.Compare(type));
       const maxSimil = Math.max(...simils);
-      if (maxSimil >= 0) {
+      if (maxSimil > 0) {
         const maxIndex = simils.findIndex((simil) => simil === maxSimil);
         const srcType = types[maxIndex];
         types.splice(maxIndex, 1, srcType.Merge(type));
@@ -75,12 +75,7 @@ export class TypeUnion extends Type {
   }
 
   protected DiffMerge(type: Type): Type {
-    const simil = this.DiffCompare(type);
-    if (simil >= 1) {
-      return this;
-    } else {
-      return this.unionMerge(type);
-    }
+    return this.unionMerge(type);
   }
 
   /**
