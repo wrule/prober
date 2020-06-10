@@ -13,17 +13,29 @@ const path = require('path');
 const { Prober } = require('@wrule/prober');
 
 const obj = {
-  a: [
-    {name: 'kim'},
-    {name: 'jim'},
-  ]
+  a: [{name: 'kim'}, {name: 'jim'}]
 };
-const prober = new Prober();
 const dstPath = path.join(__dirname, 'output');
+
+const prober = new Prober();
 const type = prober.Update(obj, 'test', dstPath);
 console.log(type.TypeDesc);
 ```
 ### Output
+#### Console
+```
+ITest_08890C26
+```
+#### Generated code
 ```js
-typescript code...
+import { IA_ArrayItem_31B51A0F } from './a_ArrayItem_31B51A0F';
+
+export interface ITest_08890C26 {
+  'a': IA_ArrayItem_31B51A0F[];
+}
+```
+```js
+export interface IA_ArrayItem_31B51A0F {
+  'name': string;
+}
 ```
