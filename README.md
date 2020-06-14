@@ -3,10 +3,6 @@
 	<img width="380" src="media/logo.svg" alt="hasha">
 	<br>
 	<br>
-<<<<<<< HEAD
-=======
-	<br>
->>>>>>> 1a2f3fbbb80582ea5508f388ff2494cf99e784a1
 </h1>
 > Get TypeScript type from JavaScript value and generate TypeScript code
 
