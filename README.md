@@ -6,8 +6,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
 </h1>
 > Get TypeScript type from JavaScript value and generate TypeScript code
 
