@@ -1,8 +1,5 @@
 <h1 align="center">
-	<br>
 	<img width="380" src="media/logo.svg" alt="hasha">
-	<br>
-	<br>
 </h1>
 > Get TypeScript type from JavaScript value and generate TypeScript code
 
