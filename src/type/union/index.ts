@@ -2,6 +2,7 @@ import { Type } from '../index';
 import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeInterface } from '../interface';
+import { IJsType } from '../../jsType';
 
 /**
  * 联合类型，一种数据可能为多种类型的类型
@@ -76,6 +77,12 @@ export class TypeUnion extends Type {
 
   protected DiffMerge(type: Type): Type {
     return this.unionMerge(type);
+  }
+
+  protected ToSpecJs(): IJsType {
+    return {
+      types: this.types.map((type) => type.ToJs()),
+    };
   }
 
   /**

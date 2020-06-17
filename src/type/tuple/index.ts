@@ -4,6 +4,7 @@ import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeUndefined } from '../undefined';
 import { TypeInterface } from '../interface';
+import { IJsType } from '../../jsType';
 
 export class TypeTuple extends Type {
   public get IsBase(): boolean {
@@ -98,6 +99,12 @@ export class TypeTuple extends Type {
     } else {
       return new TypeUnion(this, type);
     }
+  }
+
+  protected ToSpecJs(): IJsType {
+    return {
+      types: this.types.map((type) => type.ToJs()),
+    };
   }
 
   public constructor(

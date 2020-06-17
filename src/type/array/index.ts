@@ -3,6 +3,7 @@ import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeInterface } from '../interface';
+import { IJsType } from '../../jsType';
 
 export class TypeArray extends Type {
   public get IsBase(): boolean {
@@ -60,6 +61,12 @@ export class TypeArray extends Type {
     } else {
       return new TypeUnion(this, type);
     }
+  }
+
+  protected ToSpecJs(): IJsType {
+    return {
+      types: this.types.map((type) => type.ToJs()),
+    };
   }
 
   public constructor(

@@ -4,6 +4,7 @@ import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeUndefined } from '../undefined';
+import { IJsType } from '../../jsType';
 
 export class TypeInterface extends Type {
   public get IsBase(): boolean {
@@ -116,6 +117,13 @@ export class TypeInterface extends Type {
     } else {
       return new TypeUnion(this, type);
     }
+  }
+
+  protected ToSpecJs(): IJsType {
+    return {
+      intfName: this.intfName,
+      intfMbrs: Array.from(this.intfMbrs.entries()).map((mbr) => [mbr[0], mbr[1].ToJs()]),
+    };
   }
 
   public constructor(
