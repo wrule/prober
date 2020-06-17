@@ -1,13 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 import { Field } from './field';
+export { Field } from './field';
 import { IntfCode } from './intfCode';
 import { TypeDeducer } from './typeDeducer';
+export { TypeDeducer } from './typeDeducer';
 import { TypeJSON } from './typeJson';
 import { Type } from './type';
+export { Type } from './type';
 import { TypeInterface } from './type/interface';
 import { TypeKind } from './typeKind';
+export { TypeKind } from './typeKind';
 import { ICodeOptions } from './codeOptions';
+export { ICodeOptions } from './codeOptions';
 
 /**
  * 探测器类
