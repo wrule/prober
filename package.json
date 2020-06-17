@@ -1,6 +1,6 @@
 {
   "name": "@wrule/prober",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Get TypeScript type from JavaScript value and generate TypeScript code",
   "main": "dist/index.js",
   "scripts": {
