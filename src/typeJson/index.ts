@@ -18,35 +18,12 @@ import { TypeAny } from '../type/any';
  */
 export class TypeJSON {
   /**
-   * 序列化Type对象
-   * @param type Type对象
-   * @returns Json文本
-   */
-  public static Stringify(type: Type): string {
-    return JSON.stringify(this.ToJs(type), null, 2);
-  }
-
-  /**
    * 反序列化Type对象
    * @param json Json文本
    * @returns Type对象
    */
   public static Parse(json: string): Type {
     return this.FromJs(JSON.parse(json) as IJsType);
-  }
-
-  /**
-   * Type对象转化为JavaScript对象
-   * @param type Type对象
-   * @returns JavaScript对象
-   */
-  private static ToJs(type: Type): IJsType {
-    return {
-      kind: type.Kind,
-      types: type.Types.map((type) => this.ToJs(type)),
-      intfName: type.IntfName,
-      intfMbrs: Array.from(type.IntfMbrs.entries()).map((mbr) => [mbr[0], this.ToJs(mbr[1])]),
-    };
   }
 
   /**
@@ -64,11 +41,11 @@ export class TypeJSON {
       case TypeKind.Date: return new TypeDate();
       case TypeKind.Interface: return new TypeInterface(
         jsObj.intfName,
-        new Map<string, Type>(jsObj.intfMbrs.map((mbr) => [mbr[0], this.FromJs(mbr[1])])),
+        new Map<string, Type>(jsObj.intfMbrs?.map((mbr) => [mbr[0], this.FromJs(mbr[1])])),
       );
-      case TypeKind.Union: return new TypeUnion(...jsObj.types.map((type) => this.FromJs(type)));
-      case TypeKind.Array: return new TypeArray(this.FromJs(jsObj.types[0]));
-      case TypeKind.Tuple: return new TypeTuple(jsObj.types.map((type) => this.FromJs(type)));
+      case TypeKind.Union: return new TypeUnion(...(jsObj.types as IJsType[]).map((type) => this.FromJs(type)));
+      case TypeKind.Array: return new TypeArray(this.FromJs((jsObj.types as IJsType[])[0]));
+      case TypeKind.Tuple: return new TypeTuple((jsObj.types as IJsType[]).map((type) => this.FromJs(type)));
       default: return new TypeAny();
     }
   }
