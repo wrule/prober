@@ -1,5 +1,6 @@
 import { TypeKind } from '../typeKind';
 import { TypeInterface } from './interface';
+import { IJsType } from '../jsType';
 
 /**
  * Type抽象类
@@ -33,6 +34,15 @@ export abstract class Type {
   protected abstract DiffCompare(type: Type): number;
 
   protected abstract DiffMerge(type: Type): Type;
+
+  protected abstract ToSpecJs(): IJsType;
+
+  public ToJs(): IJsType {
+    return {
+      kind: this.kind,
+      ...this.ToSpecJs(),
+    };
+  }
 
   /**
    * 比较类型以获取两个类型之间的相似度

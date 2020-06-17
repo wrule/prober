@@ -3,6 +3,7 @@ import { TypeKind } from '../../typeKind';
 import { Hash } from '../../hash';
 import { TypeUnion } from '../union';
 import { TypeInterface } from '../interface';
+import { IJsType } from '../../jsType';
 
 export class TypeString extends Type {
   public get IsBase(): boolean {
@@ -32,6 +33,10 @@ export class TypeString extends Type {
 
   protected DiffMerge(type: Type): Type {
     return new TypeUnion(this, type);
+  }
+
+  protected ToSpecJs(): IJsType {
+    return {};
   }
 
   public constructor() {
