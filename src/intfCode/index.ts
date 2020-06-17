@@ -13,8 +13,11 @@ export class IntfCode {
 ${this.intfType.DepIntfTypes.map((type) => `import { ${type.TypeDesc} } from './${type.IntfFullName}';`).join('\r\n')}
 
 export interface ${this.intfType.TypeDesc} {
-${this.intfType.Members.map((mbr) => `  '${mbr[0]}'${this.options.mbrOmit ? '?' : ''}: ${mbr[1].TypeDesc};`).join('\r\n')}
-${this.options.anyMbr ? '  [field: string]: any;' : ''}
+${this.intfType
+  .Members
+  .map((mbr) => `  '${mbr[0]}'${this.options.mbrOmit ? '?' : ''}: ${mbr[1].TypeDesc};`)
+  .join('\r\n')}${this.options.anyMbr ? `
+  [field: string]: any;` : ''}
 }
 `.trim() + '\r\n';
   }
