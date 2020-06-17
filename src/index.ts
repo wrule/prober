@@ -92,7 +92,7 @@ export class Prober {
     outPath: string,
     options: ICodeOptions,
   ): void {
-    const jsonStr = TypeJSON.Stringify(type);
+    const jsonStr = type.ToJson();
     this.writeFile(outPath, this.TypeFileName, jsonStr);
     if (type.Kind === TypeKind.Interface) {
       this.writeIntf(outPath, type as TypeInterface, options);
