@@ -44,6 +44,10 @@ export abstract class Type {
     };
   }
 
+  public ToJson(): string {
+    return JSON.stringify(this.ToJs(), null, 2);
+  }
+
   /**
    * 比较类型以获取两个类型之间的相似度
    * @param type 需比较的类型
